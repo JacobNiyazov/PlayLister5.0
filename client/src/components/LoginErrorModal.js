@@ -19,21 +19,21 @@ const style = {
     p: 4,
 };
 
-export default function RegisterErrorModal() {
-    const { store } = useContext(GlobalStoreContext);
+export default function LoginErrorModal() {
     const { auth } = useContext(AuthContext);
 
     function handleCloseModal(event) {
-        auth.closeRegisterErrorModal();
+        auth.closeLoginErrorModal();
     }
+    console.log(auth.loginError);
 
     return (
         <Modal
-            open={auth.registerError !== null}
+            open={auth.loginError !== null}
         >
             <Box sx={style}>
                 <div>
-                <Alert severity="error">{auth.registerError}</Alert>
+                <Alert severity="error">{auth.loginError}</Alert>
                 <div id="confirm-cancel-container">
                 <Button onClick={handleCloseModal} autoFocus>
                     Close
