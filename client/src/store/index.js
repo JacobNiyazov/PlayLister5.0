@@ -258,11 +258,12 @@ function GlobalStoreContextProvider(props) {
             payload: {}
         });
         tps.clearAllTransactions();
+        history.push("/");
     }
 
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
-        let newListName = "Untitled" + store.newListCounter;
+        let newListName = "Untitled" + store.idNamePairs.length;
         const response = await api.createPlaylist(newListName, [], auth.user.email);
         console.log("createNewList response: " + response);
         if (response.status === 201) {
@@ -316,6 +317,12 @@ function GlobalStoreContextProvider(props) {
             }
         }
         getListToDelete(id);
+    }
+    store.unmarkListForDeletion = function() {
+        storeReducer({
+            type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
+            payload: {id: null, playlist: null}
+        });
     }
     store.deleteList = function (id) {
         async function processDelete(id) {
