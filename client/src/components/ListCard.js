@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
-import TextField from '@mui/material/TextField';
+import TextField, { textFieldClasses } from '@mui/material/TextField';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -57,7 +57,9 @@ function ListCard(props) {
     function handleKeyPress(event) {
         if (event.code === "Enter") {
             let id = event.target.id.substring("list-".length);
-            store.changeListName(id, text);
+            if(text != ""){
+                store.changeListName(id, text);
+            }
             toggleEdit();
         }
     }
