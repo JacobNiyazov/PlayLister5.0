@@ -33,7 +33,7 @@ export default function RegisterErrorModal() {
         >
             <Box sx={style}>
                 <div>
-                <Alert severity="error">{auth.registerError}</Alert>
+                <Alert severity="warning">{auth.registerError}</Alert>
                 <div id="confirm-cancel-container">
                 <Button onClick={handleCloseModal} autoFocus>
                     Close

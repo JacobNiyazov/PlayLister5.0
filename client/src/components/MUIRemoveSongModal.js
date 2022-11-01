@@ -3,6 +3,9 @@ import GlobalStoreContext from '../store';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const style = {
     position: 'absolute',
@@ -38,37 +41,28 @@ export default function MUIRemoveSongModal() {
 
     return (
         <Modal
-            open={store.listMarkedForDeletion !== null}
+            open={store.currentSong !== null}
         >
             <Box sx={style}>
-            <div
-        id="remove-song-modal"
-        className={modalClass}
-        data-animation="slideInOutLeft">
-        <div className="modal-root" id='verify-remove-song-root'>
-            <div className="modal-north">
-                Remove {songTitle}?
-            </div>
-            <div className="modal-center">
-                <div className="modal-center-content">
-                    Are you sure you wish to permanently remove {songTitle} from the playlist?
+                <div
+                    id="remove-song-modal"
+                    // className={modalClass}
+                    data-animation="slideInOutLeft">
+                    <div className="modal-root" id='verify-remove-song-root'>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Remove Song?
+                        </Typography>
+                        <Alert severity="warning">Are you sure you wish to permanently remove {songTitle} from the playlist?</Alert>
+                        <div className="modal-south">
+                            <Button onClick={handleConfirmRemoveSong} autoFocus>
+                                Confirm
+                            </Button>
+                            <Button onClick={handleCancelRemoveSong} autoFocus>
+                                Cancel
+                            </Button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="modal-south">
-                <input type="button" 
-                    id="remove-song-confirm-button" 
-                    className="modal-button" 
-                    onClick={handleConfirmRemoveSong} 
-                    value='Confirm' />
-                <input 
-                    type="button" 
-                    id="remove-song-cancel-button" 
-                    className="modal-button" 
-                    onClick={handleCancelRemoveSong} 
-                    value='Cancel' />
-            </div>
-        </div>
-    </div>
             </Box>
         </Modal>
     );

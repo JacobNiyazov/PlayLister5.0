@@ -33,13 +33,13 @@ export default function LoginErrorModal() {
         >
             <Box sx={style}>
                 <div>
-                <Alert severity="error">{auth.loginError}</Alert>
-                <div id="confirm-cancel-container">
-                <Button onClick={handleCloseModal} autoFocus>
-                    Close
-                </Button>
+                    <Alert severity="warning">{auth.loginError}</Alert>
+                    <div id="confirm-cancel-container">
+                    <Button onClick={handleCloseModal} autoFocus>
+                        Close
+                    </Button>
+                    </div>
                 </div>
-            </div>
             </Box>
         </Modal>
     );
