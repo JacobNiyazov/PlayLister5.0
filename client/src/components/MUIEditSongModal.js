@@ -69,19 +69,19 @@ export default function MUIEditSongModal() {
                             id="edit-song-modal-content"
                             className="modal-center">
                             <div style={{ display: 'inline-flex', margin:'15px 0px' }}>
-                                <Typography id="modal-modal-title" variant="h6" component="h5">
+                                <Typography id="modal-modal-title" variant="h6" component="h5" mr='83px' pt='10px' >
                                     Title:
                                 </Typography>
                                 <TextField id="outlined-basic" variant="outlined" defaultValue={title} onChange={handleUpdateTitle}/>
                             </div>
                             <div style={{ display: 'inline-flex', margin:'15px 0px' }}>
-                                <Typography id="modal-modal-title" variant="h6" component="h5">
+                                <Typography id="modal-modal-title" variant="h6" component="h5" mr='75px' pt='10px' >
                                     Artist:
                                 </Typography>
                                 <TextField id="outlined-basic" variant="outlined" defaultValue={artist} onChange={handleUpdateArtist}/>
                             </div>
                             <div style={{ display: 'inline-flex', margin:'15px 0px' }}>
-                                <Typography id="modal-modal-title" variant="h6" component="h5">
+                                <Typography id="modal-modal-title" variant="h6" component="h5" mr='20px' pt='10px' >
                                     YouTube Id:
                                 </Typography>
                                 <TextField id="outlined-basic" variant="outlined" defaultValue={youTubeId} onChange={handleUpdateYouTubeId}/>
