@@ -24,6 +24,9 @@ function WorkspaceScreen() {
         console.log("yes")
         modalJSX = <MUIRemoveSongModal />;
     }
+    if(store.currentList == null){
+        return;
+    }
     return (
         <Box>
         <List 
