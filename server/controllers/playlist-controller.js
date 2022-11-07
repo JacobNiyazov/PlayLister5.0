@@ -17,33 +17,41 @@ createPlaylist = (req, res) => {
             error: 'You must provide a Playlist',
         })
     }
-
-    const playlist = new Playlist(body);
-    console.log("playlist: " + playlist.toString());
-    if (!playlist) {
-        return res.status(400).json({ success: false, error: err })
-    }
-
+    console.log("before")
     User.findOne({ _id: req.userId }, (err, user) => {
-        console.log("user found: " + JSON.stringify(user));
-        user.playlists.push(playlist._id);
-        user
-            .save()
-            .then(() => {
-                playlist
-                    .save()
-                    .then(() => {
-                        return res.status(201).json({
-                            playlist: playlist
+        if(user.email != body.ownerEmail){
+            return res.status(400).json({ success: false, error: 'Inavlid Email' })
+        }
+        else{
+            console.log("after")
+            console.log(body)
+            const playlist = new Playlist(body);
+            console.log("playlist: " + playlist.toString());
+            if (!playlist) {
+                return res.status(400).json({ success: false, error: err })
+            }
+
+            console.log("user found: " + JSON.stringify(user));
+            user.playlists.push(playlist._id);
+            user
+                .save()
+                .then(() => {
+                    playlist
+                        .save()
+                        .then(() => {
+                            return res.status(201).json({
+                                playlist: playlist
+                            })
                         })
-                    })
-                    .catch(error => {
-                        return res.status(400).json({
-                            errorMessage: 'Playlist Not Created!'
+                        .catch(error => {
+                            return res.status(400).json({
+                                errorMessage: 'Playlist Not Created!'
+                            })
                         })
-                    })
-            });
+                });
+        }
     })
+    
 }
 deletePlaylist = async (req, res) => {
     console.log("delete Playlist with id: " + JSON.stringify(req.params.id));
