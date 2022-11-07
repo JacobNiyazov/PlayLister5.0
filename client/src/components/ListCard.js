@@ -44,6 +44,9 @@ function ListCard(props) {
         if (newActive) {
             store.setIsListNameEditActive();
         }
+        else{
+            store.setNameNotEditActive();
+        }
         setEditActive(newActive);
     }
 
@@ -72,9 +75,14 @@ function ListCard(props) {
         selectClass = "selected-list-card";
     }
     let cardStatus = false;
-    if (store.isListNameEditActive) {
+    if (store.listNameActive) {
         cardStatus = true;
     }
+    let isModalOpen = false;
+    if(store.currentModal != "NONE"){
+        isModalOpen = true;
+    }
+    console.log(cardStatus)
     let cardElement =
         <ListItem
             id={idNamePair._id}
@@ -88,14 +96,14 @@ function ListCard(props) {
         >
             <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
             <Box sx={{ p: 1 }}>
-                <IconButton onClick={handleToggleEdit} aria-label='edit'>
+                <IconButton onClick={handleToggleEdit} disabled={isModalOpen || cardStatus} aria-label='edit'>
                     <EditIcon style={{fontSize:'28pt'}} />
                 </IconButton>
             </Box>
             <Box sx={{ p: 1 }}>
                 <IconButton onClick={(event) => {
                         handleDeleteList(event, idNamePair._id)
-                    }} aria-label='delete'>
+                    }} disabled={isModalOpen || cardStatus} aria-label='delete'>
                     <DeleteIcon style={{fontSize:'28pt'}} />
                 </IconButton>
             </Box>

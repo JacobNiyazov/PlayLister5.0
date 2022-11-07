@@ -23,7 +23,15 @@ const HomeScreen = () => {
         store.createNewList();
     }
     let listCard = "";
+    let cardStatus = false;
+    let isModalOpen = false;
     if (store) {
+        if(store.currentModal != "NONE"){
+            isModalOpen = true;
+        }
+        if (store.listNameActive) {
+            cardStatus = true;
+        }
         listCard = 
             <List sx={{ width: '90%', left: '5%', bgcolor: 'background.paper' }}>
             {
@@ -45,6 +53,7 @@ const HomeScreen = () => {
                 aria-label="add"
                 id="add-list-button"
                 onClick={handleCreateNewList}
+                disabled={isModalOpen || cardStatus}
             >
                 <AddIcon />
             </Fab>
