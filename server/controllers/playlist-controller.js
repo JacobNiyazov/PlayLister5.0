@@ -66,6 +66,11 @@ deletePlaylist = async (req, res) => {
                     Playlist.findOneAndDelete({ _id: req.params.id }, () => {
                         return res.status(200).json({ success: true });
                     }).catch(err => console.log(err))
+                    let songIdx = user.playlists.indexOf(req.params.id);
+                    if(songIdx >= 0){
+                        user.playlists.splice(songIdx, 1);
+                        user.save();
+                    }
                 }
                 else {
                     console.log("incorrect user!");
