@@ -91,7 +91,23 @@ export default function AppBanner() {
         else
             return <AccountCircle />;
     }
-
+    let cardStatus = false;
+    if (store.listNameActive) {
+        cardStatus = true;
+    }
+    let isModalOpen = false;
+    if(store.currentModal != "NONE"){
+        isModalOpen = true;
+    }
+    let registerError = false;
+    if (auth.registerError != null) {
+        registerError = true;
+    }
+    let loginError = false;
+    if(auth.loginError != null){
+        loginError = true;
+    }
+    console.log(loginError)
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -114,6 +130,7 @@ export default function AppBanner() {
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
                             color="inherit"
+                            disabled={isModalOpen || cardStatus || loginError || registerError}
                         >
                             { getAccountMenu(auth.loggedIn) }
                         </IconButton>

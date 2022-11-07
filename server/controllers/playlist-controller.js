@@ -17,14 +17,11 @@ createPlaylist = (req, res) => {
             error: 'You must provide a Playlist',
         })
     }
-    console.log("before")
     User.findOne({ _id: req.userId }, (err, user) => {
         if(user.email != body.ownerEmail){
             return res.status(400).json({ success: false, error: 'Inavlid Email' })
         }
         else{
-            console.log("after")
-            console.log(body)
             const playlist = new Playlist(body);
             console.log("playlist: " + playlist.toString());
             if (!playlist) {
