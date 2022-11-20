@@ -120,7 +120,7 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <IconButton style={{ textDecoration: 'none', color: 'white' }}  onClick={handleHomeClick} size="large" disabled={isModalOpen || cardStatus || loginError || registerError} >⌂</IconButton>
+                        <IconButton style={{ textDecoration: 'none' }} color="inherit" onClick={handleHomeClick} size="large" disabled={isModalOpen || cardStatus || loginError || registerError} >⌂</IconButton>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
