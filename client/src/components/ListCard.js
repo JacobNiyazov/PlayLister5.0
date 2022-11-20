@@ -5,6 +5,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Typography from '@mui/material/Typography';
+
+
 import TextField, { textFieldClasses } from '@mui/material/TextField';
 
 /*
@@ -19,6 +26,7 @@ function ListCard(props) {
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const { idNamePair, selected } = props;
+    const [expand, setExpand] = useState(false);
 
     function handleLoadList(event, id) {
         console.log("handleLoadList for " + id);
@@ -36,7 +44,9 @@ function ListCard(props) {
 
     function handleToggleEdit(event) {
         event.stopPropagation();
-        toggleEdit();
+        if (event.detail === 2) {
+            toggleEdit();
+        }
     }
 
     function toggleEdit() {
@@ -90,11 +100,28 @@ function ListCard(props) {
             sx={{display: 'flex', p: 1 }}
             style={{ width: '100%', fontSize: '28pt' }}
             button
-            onClick={(event) => {
-                handleLoadList(event, idNamePair._id)
-            }}
+            onClick={handleToggleEdit}
         >
-            <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
+            <Accordion expanded={expand} sx={{ p: 1, flexGrow: 1 }}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => setExpand(!expand)} />
+                    }
+                    >
+                    <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                        {idNamePair.name}
+                    </Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>I am an accordion</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
+                        Aliquam eget maximus est, id dignissim quam.
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+            {/* <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
             <Box sx={{ p: 1 }}>
                 <IconButton onClick={handleToggleEdit} disabled={isModalOpen || cardStatus} aria-label='edit'>
                     <EditIcon style={{fontSize:'28pt'}} />
@@ -106,7 +133,7 @@ function ListCard(props) {
                     }} disabled={isModalOpen || cardStatus} aria-label='delete'>
                     <DeleteIcon style={{fontSize:'28pt'}} />
                 </IconButton>
-            </Box>
+            </Box> */}
         </ListItem>
 
     if (editActive) {
