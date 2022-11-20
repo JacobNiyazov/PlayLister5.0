@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
-
+import ListPlayer from './ListPlayer'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Tabs from '@mui/material/Tabs'
@@ -26,6 +26,7 @@ const ListViewer = () => {
         'aria-controls': `simple-tabpanel-${index}`,
       };
     }
+    const player = <ListPlayer />
     
     return (
       <Grid>
@@ -35,7 +36,7 @@ const ListViewer = () => {
                   <Tab label="Item Two" {...a11yProps(1)}/>
               </Tabs>
           </Box>
-          {tabValue === 0 && "AAAA"}
+          {tabValue === 0 && player}
       </Grid>
       )
 }
