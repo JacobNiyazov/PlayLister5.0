@@ -14,28 +14,32 @@ function ListPlayerController() {
     const { store } = useContext(GlobalStoreContext);
 
     return (
-      <Box sx={{width: '50%', borderRadius: "25%"}}>
-        <AppBar sx={{ borderRadius: "5rem"}} position="static">
+      <Box m="auto" sx={{width: '50%'}}>
+        <AppBar sx={{ borderRadius: "5rem", mx: '1rem', my: '0.5rem'}} position="static">
           <Toolbar>
-            <Button
+            <Button 
+                style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
                 size='large'
                 id='add-song-button'
                 variant="contained">
                 <SkipPreviousIcon />
             </Button>
             <Button 
+                style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
                 size='large'
                 id='undo-button'
                 variant="contained">
                     <StopIcon />
             </Button>
             <Button 
+                style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
                 size='large'
                 id='redo-button'
                 variant="contained">
                     <PlayCircleIcon />
             </Button>
             <Button 
+                style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
                 size='large'
                 id='close-button'
                 variant="contained">

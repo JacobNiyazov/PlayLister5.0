@@ -20,7 +20,7 @@ const ListPlayer = () => {
     
     return (
       <Grid>
-          <Box sx={{my: '1rem', height: '30rem', width: '45rem', border: 1, borderColor: 'black' }}>
+          <Box sx={{m: '1rem', height: '25rem', width: '40rem', border: 1, borderColor: 'black' }}>
             Hello
           </Box>
           <Typography variant='h5'>PlayList: </Typography>

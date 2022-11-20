@@ -27,7 +27,7 @@ function Statusbar() {
         return (
             <div id="playlister-statusbar">
                 <Fab size="small"
-                    color="foundation" 
+                    style={{backgroundColor: '#ffffff', color: '#1976d2'}}
                     aria-label="add"
                     id="add-list-button"
                 >

@@ -144,7 +144,9 @@ body {
   float: left;
 }
 
+
 #list-selector-list {
+  background-image: linear-gradient(to bottom, #1976d2, #ffffff);
   position: absolute;
   left: 0%;
   top: 10%;
@@ -155,8 +157,9 @@ body {
   overflow: scroll;
 }
 #list-viewer {
+  background-image: linear-gradient(to bottom, #1976d2, #ffffff);
   position: absolute;
-  left: 51%;
+  left: 50%;
   top: 10%;
   width: 50%;
   height: 90%;
