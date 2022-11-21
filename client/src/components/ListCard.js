@@ -1,8 +1,6 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
 import Box from '@mui/material/Box';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import Grid from '@mui/material/Grid';
@@ -11,11 +9,15 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
-
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import UndoIcon from '@mui/icons-material/Undo';
+import RedoIcon from '@mui/icons-material/Redo';
+import AddIcon from '@mui/icons-material/Add';
 import TextField, { textFieldClasses } from '@mui/material/TextField';
 import LikeDislikeController from './LikeDislikeController';
+import SongCard from './SongCard';
+
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -131,10 +133,49 @@ function ListCard(props) {
                     </Grid>                    
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                        Aliquam eget maximus est, id dignissim quam.
-                    </Typography>
+                    <Box maxHeight={500} sx={{ overflowY: "scroll" }}>
+                        <List 
+                            id="playlist-cards" 
+                            sx={{ width: '100%', bgcolor: 'background.paper' }}
+                        >
+                            {
+                                // store.currentList.songs.map((song, index) => (
+                                    <SongCard
+                                        id={'playlist-song-' + (0)}
+                                        key={'playlist-song-' + (0)}
+                                        index={0}
+                                        song={{title:"Unknonwn", artist:"Unknown",youTubeId:"73t2rg283"}}
+                                    />
+                                // ))  
+                            }
+                            <Box textAlign='center' className="list-card unselected-list-card" style={{height:'1.5rem'}}>
+                                <Button className="add-song-button" style={{color: '#1976d2'}}>
+                                    <AddIcon/>
+                                </Button>
+                            </Box>
+                        </List>            
+                    </Box>
+                    <Grid container>
+                        <Grid item xl={6}>
+                            <Button style={{color: '#1976d2'}}>
+                                <UndoIcon style={{fontSize:'16pt'}}/>
+                            </Button>
+                            <Button style={{color: '#1976d2'}}>
+                                <RedoIcon style={{fontSize:'16pt'}}/>
+                            </Button>
+                        </Grid>
+                        <Grid item xl={6}>
+                            <Button autoFocus>
+                                Publish
+                            </Button>
+                            <Button autoFocus>
+                                Duplicate
+                            </Button>
+                            <Button autoFocus>
+                                Delete
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </AccordionDetails>
             </Accordion>
             {/* <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>

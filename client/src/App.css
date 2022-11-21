@@ -13,7 +13,7 @@
   --swatch-accent: #669966;
   --swatch-status: #123456;
   --swatch-custom: #1976d2;
-  --swatch-song: rgb(142, 209, 197);
+  --swatch-song: rgb(188, 228, 255);
   --my-font-family: "Robaaaoto";
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
 }
@@ -211,7 +211,10 @@ body {
   transform: scale(2);
   font-size: medium;
 }
-
+.add-song-button {
+  transform: scale(2);
+  font-size: medium;
+}
 #workspace-home,
 #workspace-edit {
   position: absolute;
