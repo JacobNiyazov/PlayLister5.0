@@ -9,6 +9,7 @@ import List from '@mui/material/List';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography'
 import ListViewer from './ListViewer';
+import NavToolBar from './NavToolBar';
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -62,6 +63,9 @@ const HomeScreen = () => {
                 </Fab>
                     <Typography variant="h2">Your Lists</Typography>
                 </div> */}
+                <div id="nav-bar">
+                    <NavToolBar />
+                </div>
                 <div id="list-selector-list">
                     {
                         listCard

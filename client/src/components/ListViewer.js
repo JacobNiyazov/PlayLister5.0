@@ -31,9 +31,9 @@ const ListViewer = () => {
     return (
       <Grid>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={tabValue} onChange={handleChangeTab}>
-                  <Tab label="Item One" {...a11yProps(0)}/>
-                  <Tab label="Item Two" {...a11yProps(1)}/>
+              <Tabs value={tabValue} onChange={handleChangeTab} TabIndicatorProps={{style: {backgroundColor: "white"}}}>
+                  <Tab style={{ color: '#ffffff', fontFamily:'arial' }} label="Player" {...a11yProps(0)}/>
+                  <Tab style={{ color: '#ffffff', fontFamily:'arial' }} label="Comments" {...a11yProps(1)}/>
               </Tabs>
           </Box>
           {tabValue === 0 && player}
