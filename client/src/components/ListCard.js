@@ -5,14 +5,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
+import Grid from '@mui/material/Grid';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
-
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 import TextField, { textFieldClasses } from '@mui/material/TextField';
+import LikeDislikeController from './LikeDislikeController';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -102,17 +105,30 @@ function ListCard(props) {
             button
             onClick={handleToggleEdit}
         >
-            <Accordion expanded={expand} sx={{ p: 1, flexGrow: 1 }}>
+            <Accordion expanded={expand} sx={{ p: 1, flexGrow: 1}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: 'pointer'}}
                         onClick={() => setExpand(!expand)} />
                     }
                     >
-                    <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                        {idNamePair.name}
-                    </Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>I am an accordion</Typography>
+                    <Grid container>
+                        <Grid item xl={5}>
+                            <Typography variant= 'h4'>{idNamePair.name}</Typography>
+                        </Grid>
+                        <Grid item xl={5}>
+                            <LikeDislikeController/>
+                        </Grid>
+                        <Grid item xl={10}>
+                            <Typography variant= 'h6'>By:</Typography>
+                        </Grid>
+                        <Grid item xl={8}>
+                            <Typography variant= 'body2'>Published:</Typography>
+                        </Grid>
+                        <Grid item xl={4}>
+                            <Typography variant= 'body2'>Listens:</Typography>
+                        </Grid>
+                    </Grid>                    
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
