@@ -16,14 +16,14 @@ function Statusbar() {
     const { auth } = useContext(AuthContext);
 
     let text ="";
-    if (store.currentList){
+    if ((store.CurrentPage == store.CurrentPageType.PLAYLISTS || store.CurrentPage == store.CurrentPageType.USERS) && store.currentList){
         return (
             <div id="playlister-statusbar">
                 <Typography variant="h5">{store.currentList}</Typography>
             </div>
         );
     }
-    else if(auth.loggedIn){
+    else if(auth.loggedIn && store.CurrentPage == store.CurrentPageType.HOME){
         return (
             <div id="playlister-statusbar">
                 <Fab size="small"

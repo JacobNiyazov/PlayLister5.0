@@ -28,12 +28,24 @@ export default function NavToolBar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
 
+    const handleHomeButton = (event) => {
+        store.updateCurrentPage(store.CurrentPageType.HOME);
+    };
+    const handlePlaylistsButton = (event) => {
+        store.updateCurrentPage(store.CurrentPageType.PLAYLISTS);
+    };
+    const handleUsersButton = (event) => {
+        store.updateCurrentPage(store.CurrentPageType.USERS);
+    };
     const handleSortMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
+    let homeDisabled = false;
+    if(auth.userType == 'guest')
+        homeDisabled = true;
 
     const menuId = 'primary-search-sort-menu';
     const sortMenu = 
@@ -67,19 +79,24 @@ export default function NavToolBar() {
                     <Button 
                         style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
                         size='large'
-                        variant="contained">
+                        variant="contained"
+                        disabled={homeDisabled}
+                        classes={{disabled:"top5-button-disabled"}}
+                        onClick={handleHomeButton}>
                         <HomeIcon />
                     </Button>
                     <Button 
                         style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
                         size='large'
-                        variant="contained">
+                        variant="contained"
+                        onClick={handlePlaylistsButton}>
                         <GroupsIcon />
                     </Button>
                     <Button 
                         style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
                         size='large'
-                        variant="contained">
+                        variant="contained"
+                        onClick={handleUsersButton}>
                         <PersonSearchIcon />
                     </Button>
                     <TextField fullWidth sx={{ mx: '20%', bgcolor: '#ffffff'}} id="filled-basic" label="Search" variant="filled"/>
