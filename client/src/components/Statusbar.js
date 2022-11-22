@@ -16,14 +16,15 @@ function Statusbar() {
     const { auth } = useContext(AuthContext);
 
     let text ="";
-    if ((store.CurrentPage == store.CurrentPageType.PLAYLISTS || store.CurrentPage == store.CurrentPageType.USERS) && store.currentList){
+
+    if ((store.currentPage == store.CurrentPageType.PLAYLISTS || store.currentPage == store.CurrentPageType.USERS) && store.currentList){
         return (
             <div id="playlister-statusbar">
                 <Typography variant="h5">{store.currentList}</Typography>
             </div>
         );
     }
-    else if(auth.loggedIn && store.CurrentPage == store.CurrentPageType.HOME){
+    else if(auth.loggedIn && store.currentPage == store.CurrentPageType.HOME){
         return (
             <div id="playlister-statusbar">
                 <Fab size="small"

@@ -61,7 +61,7 @@ function GlobalStoreContextProvider(props) {
         listNameActive: false,
         listIdMarkedForDeletion: null,
         listMarkedForDeletion: null,
-        curretPage: "HOME"
+        currentPage: "HOME"
     });
     const history = useHistory();
     store.CurrentPageType = {
@@ -92,7 +92,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             // STOP EDITING THE CURRENT LIST
@@ -107,7 +107,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 })
             }
             // CREATE A NEW LIST
@@ -122,7 +122,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 })
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
@@ -137,7 +137,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -152,7 +152,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: payload.id,
                     listMarkedForDeletion: payload.playlist,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             case GlobalStoreActionType.UNMARK_LIST_FOR_DELETION: {
@@ -166,7 +166,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             // UPDATE A LIST
@@ -181,7 +181,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             // START EDITING A LIST NAME
@@ -196,7 +196,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: true,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             case GlobalStoreActionType.SET_LIST_NAME_NOT_EDIT_ACTIVE: {
@@ -210,7 +210,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             // 
@@ -225,7 +225,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             case GlobalStoreActionType.REMOVE_SONG: {
@@ -239,7 +239,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             case GlobalStoreActionType.HIDE_MODALS: {
@@ -253,7 +253,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.curretPage
+                    currentPage: store.currentPage
                 });
             }
             case GlobalStoreActionType.LOG_OUT: {
@@ -267,21 +267,21 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    curretPage: store.CurrentPageType.HOME
+                    currentPage: store.CurrentPageType.HOME
                 });
             }
             case GlobalStoreActionType.UPDATE_CURRENT_PAGE: {
                 return setStore({
                     currentModal : store.currentModal,
-                    idNamePairs: store.idNamePairs,
-                    currentList: store.currentList,
-                    currentSongIndex: store.currentSongIndex,
-                    currentSong: store.currentSong,
-                    newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    listIdMarkedForDeletion: store.listIdMarkedForDeletion,
-                    listMarkedForDeletion: store.listMarkedForDeletion,
-                    curretPage: payload.curretPage
+                    idNamePairs: [],
+                    currentList: null,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: null,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    currentPage: payload.currentPage
                 });
             }
             default:
@@ -296,7 +296,7 @@ function GlobalStoreContextProvider(props) {
         storeReducer({
             type: GlobalStoreActionType.UPDATE_CURRENT_PAGE,
             payload: {
-                curretPage: page
+                currentPage: page
             }
         });
     }
@@ -308,7 +308,7 @@ function GlobalStoreContextProvider(props) {
         storeReducer({
             type: GlobalStoreActionType.UPDATE_CURRENT_PAGE,
             payload: {
-                curretPage: store.CurrentPageType.HOME
+                currentPage: store.CurrentPageType.HOME
             }
         });
         tps.clearAllTransactions();
@@ -381,16 +381,22 @@ function GlobalStoreContextProvider(props) {
     // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
     store.loadIdNamePairs = function () {
         async function asyncLoadIdNamePairs() {
-            const response = await api.getPlaylistPairs();
-            if (response.data.success) {
-                let pairsArray = response.data.idNamePairs;
-                storeReducer({
-                    type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
-                    payload: pairsArray
-                });
+            try{
+                const response = await api.getPlaylistPairs();
+                if (response.data.success) {
+                    let pairsArray = response.data.idNamePairs;
+                    console.log(pairsArray)
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                        payload: pairsArray
+                    });
+                }
+                else {
+                    console.log("API FAILED TO GET THE LIST PAIRS");
+                }
             }
-            else {
-                console.log("API FAILED TO GET THE LIST PAIRS");
+            catch (e){
+                console.log(e);
             }
         }
         asyncLoadIdNamePairs();

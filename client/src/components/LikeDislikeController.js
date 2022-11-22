@@ -18,16 +18,16 @@ function LikeDislikeController() {
     const { store } = useContext(GlobalStoreContext);
     return (
       <Box m="auto">
-        <AppBar sx={{ borderRadius: "5rem", width: '110%'}} position="static">
+        <AppBar sx={{ bgcolor: 'rgb(131, 173, 201)', borderRadius: "5rem", width: '70%'}} position="static">
           <Toolbar>
-            <Button style={{ color: '#ffffff'}}>
-                <ThumbUpOffAltIcon style={{fontSize:'20pt'}}/>
+            <Button style={{ minWidth: '0', minHeight: '0', color: '#ffffff'}}>
+                <ThumbUpOffAltIcon style={{fontSize:'16pt'}}/>
             </Button>
-            <Typography variant= 'h5' mr= '0.5rem'>12</Typography>
-            <Button style={{color: '#ffffff'}}>
-                    <ThumbDownOffAltIcon style={{fontSize:'20pt'}}/>
+            <Typography variant= 'h6'>10</Typography>
+            <Button style={{ minWidth: '0', minHeight: '0', color: '#ffffff'}}>
+                    <ThumbDownOffAltIcon style={{fontSize:'16pt'}}/>
             </Button>
-            <Typography variant= 'h5'>1</Typography>
+            <Typography variant= 'h6'>50</Typography>
           </Toolbar>
         </AppBar>
       </Box>

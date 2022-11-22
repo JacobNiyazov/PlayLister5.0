@@ -1,5 +1,7 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth'
+
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
 
@@ -17,7 +19,8 @@ import NavToolBar from './NavToolBar';
 */
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
-
+    const { auth } = useContext(AuthContext);
+    const [expanded, setExpanded] = useState(false);
     useEffect(() => {
         store.loadIdNamePairs();
     }, []);
@@ -28,12 +31,18 @@ const HomeScreen = () => {
     let listCard = "";
     let cardStatus = false;
     let isModalOpen = false;
+    
     if (store) {
         if(store.currentModal != "NONE"){
             isModalOpen = true;
         }
         if (store.listNameActive) {
             cardStatus = true;
+        }
+        const handleAccordionChange = (panel) => (event, isExpanded) => {
+            console.log(expanded)
+            console.log(isExpanded)
+            setExpanded(isExpanded ? panel : false);
         }
         listCard = 
             <List sx={{ width: '90%', left: '5%'}}>
@@ -43,6 +52,8 @@ const HomeScreen = () => {
                         key={pair._id}
                         idNamePair={pair}
                         selected={false}
+                        expanded={expanded}
+                        handleAccordionChange={handleAccordionChange}
                     />
                 ))
             }

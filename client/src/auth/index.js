@@ -90,7 +90,7 @@ function AuthContextProvider(props) {
             case AuthActionType.SET_GUEST_USER: {
                 return setAuth({
                     user: null,
-                    loggedIn: false,
+                    loggedIn: true,
                     registerError: null,
                     loginError: null,
                     userType: 'guest'

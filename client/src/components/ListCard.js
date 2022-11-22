@@ -30,8 +30,8 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
-    const { idNamePair, selected } = props;
-    const [expand, setExpand] = useState(false);
+    const { idNamePair, selected, expanded, handleAccordionChange } = props;
+    
 
     function handleLoadList(event, id) {
         console.log("handleLoadList for " + id);
@@ -97,7 +97,8 @@ function ListCard(props) {
     if(store.currentModal != "NONE"){
         isModalOpen = true;
     }
-    console.log(cardStatus)
+    console.log(expanded)
+    console.log("hi")
     let cardElement =
         <ListItem
             id={idNamePair._id}
@@ -107,15 +108,15 @@ function ListCard(props) {
             button
             onClick={handleToggleEdit}
         >
-            <Accordion expanded={expand} sx={{ p: 1, flexGrow: 1}}>
+            <Accordion expanded={expanded === idNamePair._id} sx={{ p: 1, flexGrow: 1}} onChange={handleAccordionChange(idNamePair._id)}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon
                         style={{ cursor: 'pointer'}}
-                        onClick={() => setExpand(!expand)} />
+                        onClick={() => handleAccordionChange(idNamePair._id)} />
                     }
                     >
                     <Grid container>
-                        <Grid item xl={5}>
+                        <Grid item xl={7}>
                             <Typography variant= 'h4'>{idNamePair.name}</Typography>
                         </Grid>
                         <Grid item xl={5}>
