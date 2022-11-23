@@ -23,11 +23,11 @@ function LikeDislikeController() {
             <Button style={{ minWidth: '0', minHeight: '0', color: '#ffffff'}}>
                 <ThumbUpOffAltIcon style={{fontSize:'16pt'}}/>
             </Button>
-            <Typography variant= 'h6'>10</Typography>
+            <Typography variant= 'h6'>0</Typography>
             <Button style={{ minWidth: '0', minHeight: '0', color: '#ffffff'}}>
                     <ThumbDownOffAltIcon style={{fontSize:'16pt'}}/>
             </Button>
-            <Typography variant= 'h6'>50</Typography>
+            <Typography variant= 'h6'>0</Typography>
           </Toolbar>
         </AppBar>
       </Box>

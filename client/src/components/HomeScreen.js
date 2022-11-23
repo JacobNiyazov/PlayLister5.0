@@ -41,6 +41,12 @@ const HomeScreen = () => {
         }
         const handleAccordionChange = (panel) => (event, isExpanded) => {
             setExpanded(isExpanded ? panel : false);
+            if(isExpanded){
+                store.setCurrentList(panel);
+            }
+            else{
+                store.closeCurrentList();
+            }
         }
 
         if(store.currentList && expanded != store.currentList._id){

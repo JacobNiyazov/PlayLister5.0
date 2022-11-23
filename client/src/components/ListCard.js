@@ -26,13 +26,13 @@ import SongCard from './SongCard';
     
     @author McKilla Gorilla
 */
+
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const { idNamePair, selected, expanded, handleAccordionChange } = props;
     
-
     function handleLoadList(event, id) {
         console.log("handleLoadList for " + id);
         if (!event.target.disabled) {
@@ -65,6 +65,10 @@ function ListCard(props) {
         setEditActive(newActive);
     }
 
+    function handleAddNewSong() {
+        store.addNewSong();
+    }
+
     async function handleDeleteList(event, id) {
         event.stopPropagation();
         let _id = event.target.id;
@@ -83,6 +87,17 @@ function ListCard(props) {
     }
     function handleUpdateText(event) {
         setText(event.target.value);
+    }
+    let songCards = "";
+    if(store.currentList){
+        songCards = store.currentList.songs.map((song, index) => (
+            <SongCard
+                id={'playlist-song-' + (index)}
+                key={'playlist-song-' + (index)}
+                index={index}
+                song={song}
+            />
+        ))
     }
 
     let selectClass = "unselected-list-card";
@@ -134,23 +149,16 @@ function ListCard(props) {
                     </Grid>                    
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Box maxHeight={500} sx={{ overflowY: "scroll" }}>
+                    <Box maxHeight={300} sx={{ overflowY: "scroll" }}>
                         <List 
                             id="playlist-cards" 
                             sx={{ width: '100%', bgcolor: 'background.paper' }}
                         >
                             {
-                                // store.currentList.songs.map((song, index) => (
-                                    <SongCard
-                                        id={'playlist-song-' + (0)}
-                                        key={'playlist-song-' + (0)}
-                                        index={0}
-                                        song={{title:"Unknonwn", artist:"Unknown",youTubeId:"73t2rg283"}}
-                                    />
-                                // ))  
+                                songCards 
                             }
                             <Box textAlign='center' className="list-card unselected-list-card" style={{height:'1.5rem'}}>
-                                <Button className="add-song-button" style={{color: '#1976d2'}}>
+                                <Button className="add-song-button" onClick={handleAddNewSong} style={{color: '#1976d2'}}>
                                     <AddIcon/>
                                 </Button>
                             </Box>
@@ -200,6 +208,8 @@ function ListCard(props) {
                 margin="normal"
                 required
                 fullWidth
+                color="secondary"
+                // sx={{ borderColor: 'red'}}
                 id={"list-" + idNamePair._id}
                 label="Playlist Name"
                 name="name"
