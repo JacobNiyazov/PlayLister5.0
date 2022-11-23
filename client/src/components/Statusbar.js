@@ -17,6 +17,11 @@ function Statusbar() {
 
     let text ="";
 
+    function handleCreateNewList() {
+        store.createNewList();
+        // store.loadIdNamePairs();
+    }
+
     if ((store.currentPage == store.CurrentPageType.PLAYLISTS || store.currentPage == store.CurrentPageType.USERS) && store.currentList){
         return (
             <div id="playlister-statusbar">
@@ -31,6 +36,7 @@ function Statusbar() {
                     style={{backgroundColor: '#ffffff', color: '#1976d2'}}
                     aria-label="add"
                     id="add-list-button"
+                    onClick={handleCreateNewList}
                 >
                     <AddIcon />
                 </Fab>

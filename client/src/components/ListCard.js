@@ -97,7 +97,7 @@ function ListCard(props) {
     if(store.currentModal != "NONE"){
         isModalOpen = true;
     }
-    console.log(expanded)
+    console.log(store.currentList)
     console.log("hi")
     let cardElement =
         <ListItem

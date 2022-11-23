@@ -4,8 +4,6 @@ import AuthContext from '../auth';
 import { GlobalStoreContext } from '../store'
 import logoIMG from '../PlaylisterLogo.png'
 
-import EditToolbar from './EditToolbar'
-
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -48,7 +46,7 @@ export default function NavToolBar() {
         homeDisabled = true;
 
     const menuId = 'primary-search-sort-menu';
-    
+
     const currentPage = store.currentPage;
     let homePageButtonColor;
     let playlistsPageButtonColor;

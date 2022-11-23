@@ -25,9 +25,9 @@ const HomeScreen = () => {
         store.loadIdNamePairs();
     }, []);
 
-    function handleCreateNewList() {
-        store.createNewList();
-    }
+    // function handleCreateNewList() {
+    //     store.createNewList();
+    // }
     let listCard = "";
     let cardStatus = false;
     let isModalOpen = false;
@@ -40,10 +40,14 @@ const HomeScreen = () => {
             cardStatus = true;
         }
         const handleAccordionChange = (panel) => (event, isExpanded) => {
-            console.log(expanded)
-            console.log(isExpanded)
             setExpanded(isExpanded ? panel : false);
         }
+
+        if(store.currentList && expanded != store.currentList._id){
+            console.log(store.currentList)
+            setExpanded(store.currentList._id);
+        }
+        console.log(expanded)
         listCard = 
             <List sx={{ width: '90%', left: '5%'}}>
             {
