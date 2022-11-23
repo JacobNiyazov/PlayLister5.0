@@ -74,7 +74,12 @@ function ListCard(props) {
     function handleAddNewSong() {
         store.addNewSong();
     }
-
+    function handleUndo() {
+        store.undo();
+    }
+    function handleRedo() {
+        store.redo();
+    }
     async function handleDeleteList(event, id) {
         event.stopPropagation();
         let _id = event.target.id;
@@ -173,10 +178,10 @@ function ListCard(props) {
                     </Box>
                     <Grid container>
                         <Grid item xl={6}>
-                            <Button style={{color: '#1976d2'}}>
+                            <Button onClick={handleUndo} style={{color: '#1976d2'}}>
                                 <UndoIcon style={{fontSize:'16pt'}}/>
                             </Button>
-                            <Button style={{color: '#1976d2'}}>
+                            <Button onClick={handleRedo} style={{color: '#1976d2'}}>
                                 <RedoIcon style={{fontSize:'16pt'}}/>
                             </Button>
                         </Grid>
