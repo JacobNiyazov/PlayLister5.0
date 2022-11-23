@@ -66,6 +66,9 @@ function ListCard(props) {
             store.setNameNotEditActive();
         }
         setEditActive(newActive);
+        if(expanded){
+            handleAccordionChange(expanded);
+        }
     }
 
     function handleAddNewSong() {
@@ -124,7 +127,7 @@ function ListCard(props) {
             sx={{display: 'flex', p: 1 }}
             style={{ width: '100%', fontSize: '28pt' }}
             button
-            onClick={handleToggleEdit}
+            // onClick={handleToggleEdit}
         >
             <Accordion expanded={expanded === idNamePair._id} sx={{ p: 1, flexGrow: 1}}>
                 <AccordionSummary
@@ -132,6 +135,7 @@ function ListCard(props) {
                         style={{ cursor: 'pointer'}}
                         onClick={() => handleAccordionChange(idNamePair._id)} />
                     }
+                    onClick={handleToggleEdit}
                     >
                     <Grid container>
                         <Grid item xl={7}>
