@@ -50,6 +50,9 @@ function ListCard(props) {
     function handleToggleEdit(event) {
         event.stopPropagation();
         if (event.detail === 2) {
+            if(expanded){
+                handleAccordionChange(expanded);
+            }
             toggleEdit();
         }
     }
@@ -123,7 +126,7 @@ function ListCard(props) {
             button
             onClick={handleToggleEdit}
         >
-            <Accordion expanded={expanded === idNamePair._id} sx={{ p: 1, flexGrow: 1}} onChange={handleAccordionChange(idNamePair._id)}>
+            <Accordion expanded={expanded === idNamePair._id} sx={{ p: 1, flexGrow: 1}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon
                         style={{ cursor: 'pointer'}}

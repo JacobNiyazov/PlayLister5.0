@@ -4,6 +4,8 @@ import AuthContext from '../auth'
 
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
+import MUIEditSongModal from './MUIEditSongModal'
+import MUIRemoveSongModal from './MUIRemoveSongModal'
 
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab'
@@ -28,25 +30,33 @@ const HomeScreen = () => {
     // function handleCreateNewList() {
     //     store.createNewList();
     // }
+    let modalJSX = "";
+    if (store.isEditSongModalOpen()) {
+        modalJSX = <MUIEditSongModal />;
+    }
+    else if (store.isRemoveSongModalOpen()) {
+        console.log("yes")
+        modalJSX = <MUIRemoveSongModal />;
+    }
+
     let listCard = "";
     let cardStatus = false;
     let isModalOpen = false;
-    
+    const handleAccordionChange = (panel) => {
+        setExpanded((expanded === panel) ? false : panel);
+        if(expanded === panel){
+            store.closeCurrentList();
+        }
+        else{
+            store.setCurrentList(panel);
+        }
+    }
     if (store) {
         if(store.currentModal != "NONE"){
             isModalOpen = true;
         }
         if (store.listNameActive) {
             cardStatus = true;
-        }
-        const handleAccordionChange = (panel) => (event, isExpanded) => {
-            setExpanded(isExpanded ? panel : false);
-            if(isExpanded){
-                store.setCurrentList(panel);
-            }
-            else{
-                store.closeCurrentList();
-            }
         }
 
         if(store.currentList && expanded != store.currentList._id){
@@ -97,6 +107,7 @@ const HomeScreen = () => {
                     <ListViewer />
                 </div>
             </div>
+            { modalJSX }
         </Box>)
 }
 
