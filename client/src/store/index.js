@@ -34,7 +34,8 @@ export const GlobalStoreActionType = {
     REMOVE_SONG: "REMOVE_SONG",
     HIDE_MODALS: "HIDE_MODALS",
     LOG_OUT: "LOG_OUT",
-    UPDATE_CURRENT_PAGE: "UPDATE_CURRENT_PAGE"
+    UPDATE_CURRENT_PAGE: "UPDATE_CURRENT_PAGE",
+    DUPLICATE_LIST: "DUPLICATE_LIST"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -125,6 +126,20 @@ function GlobalStoreContextProvider(props) {
                     currentPage: store.currentPage
                 })
             }
+            case GlobalStoreActionType.DUPLICATE_LIST: {                
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    currentList: null,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: store.newListCounter + 1,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    currentPage: store.currentPage
+                })
+            }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_ID_NAME_PAIRS: {
                 return setStore({
@@ -145,7 +160,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     currentModal : CurrentModal.DELETE_LIST,
                     idNamePairs: store.idNamePairs,
-                    currentList: null,
+                    currentList: store.currentList,
                     currentSongIndex: -1,
                     currentSong: null,
                     newListCounter: store.newListCounter,
@@ -159,7 +174,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     currentModal : CurrentModal.NONE,
                     idNamePairs: store.idNamePairs,
-                    currentList: null,
+                    currentList: store.currentList,
                     currentSongIndex: -1,
                     currentSong: null,
                     newListCounter: store.newListCounter,
@@ -435,6 +450,30 @@ function GlobalStoreContextProvider(props) {
     store.deleteMarkedList = function() {
         store.deleteList(store.listIdMarkedForDeletion);
         store.hideModals();
+    }
+    store.duplicateList = function(id) {
+        async function getList(id) {
+            let response = await api.getPlaylistById(id);
+            if (response.data.success) {
+                let playlist = response.data.playlist;
+                let newListName = "Copy of " + playlist.name;
+                let response2 = await api.createPlaylist(newListName, playlist.songs, auth.user.email);
+                console.log("createNewList response: " + response2);
+                if (response2.status === 201) {
+                    tps.clearAllTransactions();
+                    let newList = response2.data.playlist;
+                    storeReducer({
+                        type: GlobalStoreActionType.DUPLICATE_LIST,
+                        payload: newList
+                    });
+                    store.loadIdNamePairs();
+                }
+                else {
+                    console.log("API FAILED TO CREATE A NEW LIST");
+                }
+            }
+        }
+        getList(id);
     }
     // THIS FUNCTION SHOWS THE MODAL FOR PROMPTING THE USER
     // TO SEE IF THEY REALLY WANT TO DELETE THE LIST

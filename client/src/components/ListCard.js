@@ -80,6 +80,12 @@ function ListCard(props) {
     function handleRedo() {
         store.redo();
     }
+    function handleDuplicateList() {
+        if(expanded){
+            handleAccordionChange(expanded);
+        }
+        store.duplicateList(idNamePair._id);
+    }
     async function handleDeleteList(event, id) {
         event.stopPropagation();
         let _id = event.target.id;
@@ -189,7 +195,7 @@ function ListCard(props) {
                             <Button autoFocus>
                                 Publish
                             </Button>
-                            <Button autoFocus>
+                            <Button autoFocus onClick={handleDuplicateList}>
                                 Duplicate
                             </Button>
                             <Button autoFocus onClick={handleDeleteList}>

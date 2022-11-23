@@ -35,7 +35,6 @@ const HomeScreen = () => {
         modalJSX = <MUIEditSongModal />;
     }
     else if (store.isRemoveSongModalOpen()) {
-        console.log("yes")
         modalJSX = <MUIRemoveSongModal />;
     }
 
@@ -60,10 +59,8 @@ const HomeScreen = () => {
         }
 
         if(store.currentList && expanded != store.currentList._id){
-            console.log(store.currentList)
             setExpanded(store.currentList._id);
         }
-        console.log(expanded)
         listCard = 
             <List sx={{ width: '90%', left: '5%'}}>
             {
