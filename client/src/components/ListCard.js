@@ -84,7 +84,7 @@ function ListCard(props) {
         event.stopPropagation();
         let _id = event.target.id;
         _id = ("" + _id).substring("delete-list-".length);
-        store.markListForDeletion(id);
+        store.markListForDeletion(idNamePair._id);
     }
 
     function handleKeyPress(event) {
@@ -192,7 +192,7 @@ function ListCard(props) {
                             <Button autoFocus>
                                 Duplicate
                             </Button>
-                            <Button autoFocus>
+                            <Button autoFocus onClick={handleDeleteList}>
                                 Delete
                             </Button>
                         </Grid>
