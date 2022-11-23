@@ -86,6 +86,9 @@ function ListCard(props) {
         }
         store.duplicateList(idNamePair._id);
     }
+    function handlePublishList() {
+        store.publishList();
+    }
     async function handleDeleteList(event, id) {
         event.stopPropagation();
         let _id = event.target.id;
@@ -192,7 +195,7 @@ function ListCard(props) {
                             </Button>
                         </Grid>
                         <Grid item xl={6}>
-                            <Button autoFocus>
+                            <Button autoFocus onClick={handlePublishList}>
                                 Publish
                             </Button>
                             <Button autoFocus onClick={handleDuplicateList}>

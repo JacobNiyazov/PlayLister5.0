@@ -475,6 +475,21 @@ function GlobalStoreContextProvider(props) {
         }
         getList(id);
     }
+    store.publishList = function(id) {
+        async function asyncPublishCurrentList() {
+            let list = store.currentList;
+            list.isPublished = true;
+            list.publishDate = new Date();
+            const response = await api.updatePlaylistById(store.currentList._id, list);
+            if (response.data.success) {
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_LIST,
+                    payload: list
+                });
+            }
+        }
+        asyncPublishCurrentList();
+    }
     // THIS FUNCTION SHOWS THE MODAL FOR PROMPTING THE USER
     // TO SEE IF THEY REALLY WANT TO DELETE THE LIST
 
