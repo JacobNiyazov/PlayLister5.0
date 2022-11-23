@@ -48,6 +48,26 @@ export default function NavToolBar() {
         homeDisabled = true;
 
     const menuId = 'primary-search-sort-menu';
+    
+    const currentPage = store.currentPage;
+    let homePageButtonColor;
+    let playlistsPageButtonColor;
+    let usersPageButtonColor;
+    if(currentPage === 'HOME'){
+        homePageButtonColor = '#2c2435';
+        playlistsPageButtonColor = '#ffffff';
+        usersPageButtonColor = '#ffffff';
+    } 
+    else if(currentPage === 'PLAYLISTS'){
+        homePageButtonColor = '#ffffff';
+        playlistsPageButtonColor = '#2c2435';
+        usersPageButtonColor = '#ffffff';
+    } 
+    else if(currentPage === 'USERS'){
+        homePageButtonColor = '#ffffff';
+        playlistsPageButtonColor = '#ffffff';
+        usersPageButtonColor = '#2c2435';
+    } 
     const sortMenu = 
         <Menu
             anchorEl={anchorEl}
@@ -77,7 +97,7 @@ export default function NavToolBar() {
             <AppBar position="static">
                 <Toolbar>
                     <Button 
-                        style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
+                        style={{backgroundColor: `${homePageButtonColor}`, color: '#1976d2', margin: '0.25rem'}}
                         size='large'
                         variant="contained"
                         disabled={homeDisabled}
@@ -86,14 +106,14 @@ export default function NavToolBar() {
                         <HomeIcon />
                     </Button>
                     <Button 
-                        style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
+                        style={{backgroundColor: `${playlistsPageButtonColor}`, color: '#1976d2', margin: '0.25rem'}}
                         size='large'
                         variant="contained"
                         onClick={handlePlaylistsButton}>
                         <GroupsIcon />
                     </Button>
                     <Button 
-                        style={{backgroundColor: '#ffffff', color: '#1976d2', margin: '0.25rem'}}
+                        style={{backgroundColor: `${usersPageButtonColor}`, color: '#1976d2', margin: '0.25rem'}}
                         size='large'
                         variant="contained"
                         onClick={handleUsersButton}>

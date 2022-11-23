@@ -27,7 +27,13 @@ export const createPlaylist = (newListName, newSongs, userEmail) => {
         // SPECIFY THE PAYLOAD
         name: newListName,
         songs: newSongs,
-        ownerEmail: userEmail
+        ownerEmail: userEmail,
+        isPublished: false,
+        publishDate: "1970-01-01",
+        likes: 0,
+        dislikes: 0,
+        listens: 0,
+        comments: []
     })
 }
 export const deletePlaylistById = (id) => api.delete(`/playlist/${id}`)

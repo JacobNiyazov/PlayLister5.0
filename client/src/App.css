@@ -6,7 +6,7 @@
     
         @author McKilla Gorilla
     */
-  --swatch-foundation: #eeeedd;
+  --swatch-foundation: #2c2435;
   --swatch-primary: #e6e6e6;
   --swatch-complement: #e1e4cb;
   --swatch-contrast: #111111;
@@ -29,7 +29,7 @@ body {
   width: 80%;
   left: 10%;
   height: 90%;
-  top: 5%;
+  top: 2.5%;
 }
 
 #app-root {

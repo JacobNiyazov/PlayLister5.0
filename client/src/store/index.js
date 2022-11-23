@@ -66,7 +66,7 @@ function GlobalStoreContextProvider(props) {
     const history = useHistory();
     store.CurrentPageType = {
         HOME : "HOME",
-        PLAYLISTS : "EDIPLAYLISTST_SONG",
+        PLAYLISTS : "PLAYLISTS",
         USERS : "USERS"
     }
     console.log("inside useGlobalStore");
