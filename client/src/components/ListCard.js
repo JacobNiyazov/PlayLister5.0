@@ -132,7 +132,7 @@ function ListCard(props) {
     if(store.currentModal != "NONE"){
         isModalOpen = true;
     }
-    console.log(store.currentList)
+    console.log(idNamePair)
     console.log("hi")
     let cardElement =
         <ListItem
