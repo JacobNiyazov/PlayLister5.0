@@ -170,6 +170,21 @@ getPlaylists = async (req, res) => {
         asyncFindList(user.email);
     }).catch(err => console.log(err))
 }
+
+getAllPublishedPlaylists = async (req, res) => {
+    await Playlist.find({ isPublished: true }, (err, playlists) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!playlists) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Playlists not found` })
+        }
+        return res.status(200).json({ success: true, data: playlists })
+    }).catch(err => console.log(err))
+}
+
 updatePlaylist = async (req, res) => {
     const body = req.body
     console.log("updatePlaylist: " + JSON.stringify(body));
@@ -253,5 +268,6 @@ module.exports = {
     getPlaylistById,
     getPlaylistPairs,
     getPlaylists,
-    updatePlaylist
+    updatePlaylist,
+    getAllPublishedPlaylists
 }

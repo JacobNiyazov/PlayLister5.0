@@ -33,7 +33,7 @@ function PublishedListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
 
-    const { list, selected, expanded, handleAccordionChange } = props;
+    const { list, selected, expanded, owner, handleAccordionChange } = props;
 
     function handleDuplicateList() {
         if(expanded){
@@ -85,6 +85,17 @@ function PublishedListCard(props) {
         isModalOpen = true;
     }
 
+    let deleteButton = "";
+    let space1 = 9;
+    let space2 = 3;
+    if(owner){
+        space1 = 6;
+        space2 = 6
+        deleteButton = <Button autoFocus sx={{bgcolor:'white', opacity:'90%', ':hover': {bgcolor: 'primary.main', color: 'white'}}} onClick={handleDeleteList}>
+                            Delete
+                        </Button>
+    }
+
     let cardElement =
         <ListItem
             id={list._id}
@@ -133,15 +144,13 @@ function PublishedListCard(props) {
                         </List>            
                     </Box>
                     <Grid container>
-                        <Grid item xl={6}>
+                        <Grid item xl={space1}>
                         </Grid>
-                        <Grid item xl={6}>
+                        <Grid item xl={space2}>
                             <Button autoFocus sx={{bgcolor:'white', opacity:'90%', mr:'5%', ':hover': {bgcolor: 'primary.main', color: 'white'}}} onClick={handleDuplicateList}>
                                 Duplicate
                             </Button>
-                            <Button autoFocus sx={{bgcolor:'white', opacity:'90%', ':hover': {bgcolor: 'primary.main', color: 'white'}}} onClick={handleDeleteList}>
-                                Delete
-                            </Button>
+                            { deleteButton }
                         </Grid>
                     </Grid>
                 </AccordionDetails>

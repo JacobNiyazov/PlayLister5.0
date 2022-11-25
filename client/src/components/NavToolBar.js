@@ -30,6 +30,7 @@ export default function NavToolBar() {
         store.updateCurrentPage(store.CurrentPageType.HOME);
     };
     const handlePlaylistsButton = (event) => {
+        // store.getAllPublishedPlaylists();
         store.updateCurrentPage(store.CurrentPageType.PLAYLISTS);
     };
     const handleUsersButton = (event) => {

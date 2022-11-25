@@ -54,6 +54,7 @@ const HomeScreen = () => {
         }
     }
     if (store) {
+        console.log(store.allPublishedPlaylists)
         if(store.currentModal != "NONE"){
             isModalOpen = true;
         }
@@ -64,31 +65,55 @@ const HomeScreen = () => {
         if(store.currentList && expanded != store.currentList._id){
             setExpanded(store.currentList._id);
         }
-        listCard = 
-            <List sx={{ width: '90%', left: '5%'}}>
-            {
-                store.userLists.map((list) => {
-                    if(list.isPublished){
-                        return <PublishedListCard
-                                    key={list._id}
-                                    list={list}
-                                    selected={false}
-                                    expanded={expanded}
-                                    handleAccordionChange={handleAccordionChange}
-                                />
-                    }
-                    else{
-                        return <ListCard
-                                    key={list._id}
-                                    list={list}
-                                    selected={false}
-                                    expanded={expanded}
-                                    handleAccordionChange={handleAccordionChange}
-                                />
-                    }
-                })
-            }
-            </List>;
+        if(store.currentPage == 'HOME'){
+            console.log(store.userLists)
+            listCard = 
+                <List sx={{ width: '90%', left: '5%'}}>
+                {
+                    store.userLists.map((list) => {
+                        if(list.isPublished){
+                            return <PublishedListCard
+                                        key={list._id}
+                                        list={list}
+                                        selected={false}
+                                        expanded={expanded}
+                                        owner={true}
+                                        handleAccordionChange={handleAccordionChange}
+                                    />
+                        }
+                        else{
+                            return <ListCard
+                                        key={list._id}
+                                        list={list}
+                                        selected={false}
+                                        expanded={expanded}
+                                        handleAccordionChange={handleAccordionChange}
+                                    />
+                        }
+                    })
+                }
+                </List>;
+        }
+        else if(store.currentPage == 'PLAYLISTS'){
+            listCard = 
+                <List sx={{ width: '90%', left: '5%'}}>
+                {
+                    store.allPublishedPlaylists.map((list) => (
+                        <PublishedListCard
+                            key={list._id}
+                            list={list}
+                            selected={false}
+                            expanded={expanded}
+                            owner={false}
+                            handleAccordionChange={handleAccordionChange}
+                        />
+                    ))
+                }
+                </List>;
+        }
+        else{
+            listCard = "";
+        }
     }
     return (
         <Box>
