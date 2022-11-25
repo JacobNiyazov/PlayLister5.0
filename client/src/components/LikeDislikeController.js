@@ -14,20 +14,21 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 
-function LikeDislikeController() {
+function LikeDislikeController(props) {
     const { store } = useContext(GlobalStoreContext);
+    const { likes, dislikes } = props;
     return (
       <Box m="auto">
-        <AppBar sx={{ bgcolor: 'rgb(131, 173, 201)', borderRadius: "5rem", width: '70%'}} position="static">
+        <AppBar sx={{ bgcolor: 'rgb(131, 173, 201)', borderRadius: "5rem", width: '70%', opacity:'80%'}} position="static">
           <Toolbar>
             <Button style={{ minWidth: '0', minHeight: '0', color: '#ffffff'}}>
                 <ThumbUpOffAltIcon style={{fontSize:'16pt'}}/>
             </Button>
-            <Typography variant= 'h6'>0</Typography>
+            <Typography variant= 'h6'>{likes}</Typography>
             <Button style={{ minWidth: '0', minHeight: '0', color: '#ffffff'}}>
                     <ThumbDownOffAltIcon style={{fontSize:'16pt'}}/>
             </Button>
-            <Typography variant= 'h6'>0</Typography>
+            <Typography variant= 'h6'>{dislikes}</Typography>
           </Toolbar>
         </AppBar>
       </Box>

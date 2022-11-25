@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography'
 import ListViewer from './ListViewer';
 import NavToolBar from './NavToolBar';
+import PublishedListCard from './PublishedListCard'
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -25,6 +26,7 @@ const HomeScreen = () => {
     const [expanded, setExpanded] = useState(false);
     useEffect(() => {
         store.loadIdNamePairs();
+        // store.getPlaylists();
     }, []);
 
     // function handleCreateNewList() {
@@ -43,6 +45,7 @@ const HomeScreen = () => {
     let isModalOpen = false;
     const handleAccordionChange = (panel) => {
         setExpanded((expanded === panel) ? false : panel);
+        console.log(panel)
         if(expanded === panel){
             store.closeCurrentList();
         }
@@ -64,15 +67,26 @@ const HomeScreen = () => {
         listCard = 
             <List sx={{ width: '90%', left: '5%'}}>
             {
-                store.idNamePairs.map((pair) => (
-                    <ListCard
-                        key={pair._id}
-                        idNamePair={pair}
-                        selected={false}
-                        expanded={expanded}
-                        handleAccordionChange={handleAccordionChange}
-                    />
-                ))
+                store.userLists.map((list) => {
+                    if(list.isPublished){
+                        return <PublishedListCard
+                                    key={list._id}
+                                    list={list}
+                                    selected={false}
+                                    expanded={expanded}
+                                    handleAccordionChange={handleAccordionChange}
+                                />
+                    }
+                    else{
+                        return <ListCard
+                                    key={list._id}
+                                    list={list}
+                                    selected={false}
+                                    expanded={expanded}
+                                    handleAccordionChange={handleAccordionChange}
+                                />
+                    }
+                })
             }
             </List>;
     }

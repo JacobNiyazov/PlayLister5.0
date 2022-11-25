@@ -115,6 +115,7 @@ getPlaylistById = async (req, res) => {
         asyncFindUser(list);
     }).catch(err => console.log(err))
 }
+
 getPlaylistPairs = async (req, res) => {
     console.log("getPlaylistPairs");
     await User.findOne({ _id: req.userId }, (err, user) => {
@@ -158,12 +159,11 @@ getPlaylists = async (req, res) => {
                 if (err) {
                     return res.status(400).json({ success: false, error: err })
                 }
-                if (!playlists.length) {
+                if (!playlists) {
                     return res
                         .status(404)
                         .json({ success: false, error: `Playlists not found` })
                 }
-
                 return res.status(200).json({ success: true, data: playlists })
             }).catch(err => console.log(err))
         }
@@ -173,7 +173,7 @@ getPlaylists = async (req, res) => {
 updatePlaylist = async (req, res) => {
     const body = req.body
     console.log("updatePlaylist: " + JSON.stringify(body));
-    console.log("req.body.name: " + req.body.name);
+    console.log("req.body.name: " + req.body.playlist.name);
 
     if (!body) {
         return res.status(400).json({
@@ -198,7 +198,7 @@ updatePlaylist = async (req, res) => {
                 console.log("req.userId: " + req.userId);
                 if (user._id == req.userId) {
                     console.log("correct user!");
-                    console.log("req.body.name: " + req.body.name);
+                    console.log("req.body.playlist.name: " + req.body.playlist.name);
 
                     Playlist.exists({ name: body.playlist.name }, (err, result) => {
                         if (err) {
@@ -207,7 +207,7 @@ updatePlaylist = async (req, res) => {
                                 message: 'Playlist not found!',
                             })
                         }
-                        if (result){
+                        if (result && body.playlist.name != list.name){
                             return res.status(400).json({
                                 message: 'Playlist with this name already!',
                             })

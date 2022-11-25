@@ -1,5 +1,7 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth';
+
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
@@ -29,9 +31,11 @@ import SongCard from './SongCard';
 
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
+
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
-    const { idNamePair, selected, expanded, handleAccordionChange } = props;
+    const { list, selected, expanded, handleAccordionChange } = props;
     
     function handleLoadList(event, id) {
         console.log("handleLoadList for " + id);
@@ -84,16 +88,19 @@ function ListCard(props) {
         if(expanded){
             handleAccordionChange(expanded);
         }
-        store.duplicateList(idNamePair._id);
+        store.duplicateList(list._id);
     }
     function handlePublishList() {
+        if(expanded){
+            handleAccordionChange(expanded);
+        }
         store.publishList();
     }
     async function handleDeleteList(event, id) {
         event.stopPropagation();
         let _id = event.target.id;
         _id = ("" + _id).substring("delete-list-".length);
-        store.markListForDeletion(idNamePair._id);
+        store.markListForDeletion(list._id);
     }
 
     function handleKeyPress(event) {
@@ -119,6 +126,14 @@ function ListCard(props) {
             />
         ))
     }
+    // getLists();
+    // let plist;
+    // async function getLists() {
+    //     plist = await store.getPlaylistById(idNamePair._id);
+    // }
+    let author = list.author;
+    let likes = list.likes;
+    let dislikes = list.dislikes;
 
     let selectClass = "unselected-list-card";
     if (selected) {
@@ -132,40 +147,30 @@ function ListCard(props) {
     if(store.currentModal != "NONE"){
         isModalOpen = true;
     }
-    console.log(idNamePair)
-    console.log("hi")
+
     let cardElement =
         <ListItem
-            id={idNamePair._id}
-            key={idNamePair._id}
+            id={list._id}
+            key={list._id}
             sx={{display: 'flex', p: 1 }}
             style={{ width: '100%', fontSize: '28pt' }}
             button
             // onClick={handleToggleEdit}
         >
-            <Accordion expanded={expanded === idNamePair._id} sx={{ p: 1, flexGrow: 1}}>
+            <Accordion expanded={expanded === list._id} sx={{ p: 1, flexGrow: 1}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon
                         style={{ cursor: 'pointer'}}
-                        onClick={() => handleAccordionChange(idNamePair._id)} />
+                        onClick={() => handleAccordionChange(list._id)} />
                     }
                     onClick={handleToggleEdit}
                     >
                     <Grid container>
                         <Grid item xl={7}>
-                            <Typography variant= 'h4'>{idNamePair.name}</Typography>
-                        </Grid>
-                        <Grid item xl={5}>
-                            <LikeDislikeController/>
+                            <Typography variant= 'h4'>{list.name}</Typography>
                         </Grid>
                         <Grid item xl={10}>
-                            <Typography variant= 'h6'>By:</Typography>
-                        </Grid>
-                        <Grid item xl={8}>
-                            <Typography variant= 'body2'>Published:</Typography>
-                        </Grid>
-                        <Grid item xl={4}>
-                            <Typography variant= 'body2'>Listens:</Typography>
+                            <Typography variant= 'h6'>By: {author}</Typography>
                         </Grid>
                     </Grid>                    
                 </AccordionSummary>
@@ -231,14 +236,14 @@ function ListCard(props) {
                 fullWidth
                 color="secondary"
                 // sx={{ borderColor: 'red'}}
-                id={"list-" + idNamePair._id}
+                id={"list-" + list._id}
                 label="Playlist Name"
                 name="name"
                 autoComplete="Playlist Name"
                 className='list-card'
                 onKeyPress={handleKeyPress}
                 onChange={handleUpdateText}
-                defaultValue={idNamePair.name}
+                defaultValue={list.name}
                 inputProps={{style: {fontSize: 48}}}
                 InputLabelProps={{style: {fontSize: 24}}}
                 autoFocus
