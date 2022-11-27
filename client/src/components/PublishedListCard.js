@@ -133,10 +133,10 @@ function PublishedListCard(props) {
                             <Typography variant= 'h6'>By: {author}</Typography>
                         </Grid>
                         <Grid item xl={8}>
-                            <Typography variant= 'body2'>Published: {publishDate}</Typography>
+                            <Typography variant= 'body2'>Published: <span style={{color:'#00ffff'}}>{publishDate}</span></Typography>
                         </Grid>
                         <Grid item xl={4}>
-                            <Typography variant= 'body2'>Listens: {listens}</Typography>
+                            <Typography variant= 'body2'>Listens: <span style={{color:'#00ffff'}}>{listens}</span></Typography>
                         </Grid>
                     </Grid>                    
                 </AccordionSummary>

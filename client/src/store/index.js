@@ -450,8 +450,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     currentPage: payload.currentPage,
                     allPublishedPlaylists: store.allPublishedPlaylists,
-                    playlistSearchRes: store.playlistSearchRes,
-                    userSearchRes: store.userSearchRes,
+                    playlistSearchRes: [],
+                    userSearchRes: [],
                     currentSearch: ""
                 });
             }
@@ -470,6 +470,13 @@ function GlobalStoreContextProvider(props) {
                 currentPage: page
             }
         });
+    }
+    store.addComment = function (text) {
+        let list = store.currentList;      
+        list.comments.push({author: auth.user.username, comment: text}); 
+
+        // NOW MAKE IT OFFICIAL
+        store.updateCurrentList();
     }
     store.searchByPlaylist = function (text) {
         async function asyncSearchByPlaylist(text){

@@ -7,6 +7,9 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import TabPanel from '@mui/lab/TabPanel';
 import PropTypes from 'prop-types';
+import { List } from '@mui/material'
+import CommentCard from './CommentCard'
+import CommentViewer from './CommentViewer'
 
 /*
     This React component lists all the top5 lists in the UI.
@@ -26,7 +29,8 @@ const ListViewer = () => {
         'aria-controls': `simple-tabpanel-${index}`,
       };
     }
-    const player = <ListPlayer />
+    let player = <ListPlayer />
+    let commenter = <CommentViewer />;
     
     return (
       <Grid>
@@ -37,6 +41,7 @@ const ListViewer = () => {
               </Tabs>
           </Box>
           {tabValue === 0 && player}
+          {tabValue === 1 && commenter}
       </Grid>
       )
 }
