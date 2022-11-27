@@ -228,7 +228,7 @@ updatePlaylist = async (req, res) => {
                         }
                         if (result && body.playlist.name != list.name){
                             return res.status(400).json({
-                                message: 'Playlist with this name already!',
+                                message: 'Playlist with this name already exists!',
                             })
                         }
                         else{
@@ -257,6 +257,26 @@ updatePlaylist = async (req, res) => {
                                 })
                         }
                     })
+                }
+                else if(user._id != req.userId){
+                    list.comments = body.playlist.comments;
+                    list
+                        .save()
+                        .then(() => {
+                            console.log("SUCCESS!!!");
+                            return res.status(200).json({
+                                success: true,
+                                id: list._id,
+                                message: 'Playlist updated!',
+                            })
+                        })
+                        .catch(error => {
+                            console.log("FAILURE: " + JSON.stringify(error));
+                            return res.status(404).json({
+                                error,
+                                message: 'Playlist not updated!',
+                            })
+                        })
                 }
                 else {
                     console.log("incorrect user!");

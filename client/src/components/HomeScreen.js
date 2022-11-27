@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography'
 import ListViewer from './ListViewer';
 import NavToolBar from './NavToolBar';
 import PublishedListCard from './PublishedListCard'
+import RenameListErroModal from './RenameListErrorModal'
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -38,6 +39,9 @@ const HomeScreen = () => {
     }
     else if (store.isRemoveSongModalOpen()) {
         modalJSX = <MUIRemoveSongModal />;
+    }
+    else if(store.renameError){
+        modalJSX = <RenameListErroModal />;
     }
 
     let listCard = "";

@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth';
+
 import ListPlayer from './ListPlayer'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -17,6 +19,8 @@ import CommentCard from './CommentCard'
 */
 const CommentViewer = () => {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
+
     const [text, setText] = useState("");
 
     function handleUpdateText(event) {
@@ -36,12 +40,14 @@ const CommentViewer = () => {
                 <List>
                 {
                   store.currentList.comments.map((item) => (
-                    <CommentCard author={item.author} comment={item.comment}/>
+                    <CommentCard key={item._id} author={item.author} comment={item.comment}/>
                   ))
                 }
               </List>
     }
     
+    let isGuest = auth.userType == 'guest';
+    console.log(isGuest)
     return (
       <Grid container>
           <Grid item xl={12} maxHeight={'30rem'} style={{ minWidth: '40rem', minHeight:'30rem' }} sx={{ overflowY: "scroll" }}>
@@ -55,6 +61,7 @@ const CommentViewer = () => {
                         mt: '2%', 
                         mx:'2.5%', 
                         bgcolor: '#ffffff'}} 
+                        disabled={isGuest}
                         id="filled-basic" 
                         label="Post Comment" 
                         variant="filled" 

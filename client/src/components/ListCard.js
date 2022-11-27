@@ -106,10 +106,16 @@ function ListCard(props) {
     function handleKeyPress(event) {
         if (event.code === "Enter") {
             let id = event.target.id.substring("list-".length);
-            if(text != ""){
-                store.changeListName(id, text);
+            let sameName = store.userLists.filter(list => list.name == text);
+            if(sameName.length == 0){
+                if(text != ""){
+                    store.changeListName(id, text);
+                }
+                toggleEdit();
             }
-            toggleEdit();
+            else{
+                store.openRenameErrorModal();
+            }
         }
     }
     function handleUpdateText(event) {
