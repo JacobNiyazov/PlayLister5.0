@@ -106,6 +106,10 @@ getPlaylistById = async (req, res) => {
                     console.log("correct user!");
                     return res.status(200).json({ success: true, playlist: list })
                 }
+                else if (list.isPublished) {
+                    console.log("list is public!");
+                    return res.status(200).json({ success: true, playlist: list })
+                }
                 else {
                     console.log("incorrect user!");
                     return res.status(400).json({ success: false, description: "authentication error" });

@@ -759,6 +759,7 @@ function GlobalStoreContextProvider(props) {
             let response = await api.getPlaylistById(id);
             if (response.data.success) {
                 let playlist = response.data.playlist;
+                console.log(playlist)
                 storeReducer({
                     type: GlobalStoreActionType.SET_CURRENT_LIST,
                     payload: playlist

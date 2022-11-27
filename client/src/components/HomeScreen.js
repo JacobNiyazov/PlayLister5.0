@@ -45,7 +45,6 @@ const HomeScreen = () => {
     let isModalOpen = false;
     const handleAccordionChange = (panel) => {
         setExpanded((expanded === panel) ? false : panel);
-        console.log(panel)
         if(expanded === panel){
             store.closeCurrentList();
         }
@@ -100,7 +99,7 @@ const HomeScreen = () => {
                     <List sx={{ width: '90%', left: '5%'}}>
                     {
                         store.allPublishedPlaylists.map((list) => {
-                            if(list.ownerEmail == auth.user.email){
+                            if(auth.user && list.ownerEmail == auth.user.email){
                                 return <PublishedListCard
                                     key={list._id}
                                     list={list}
@@ -129,7 +128,7 @@ const HomeScreen = () => {
                     <List sx={{ width: '90%', left: '5%'}}>
                     {
                         store.playlistSearchRes.map((list) => {
-                            if(list.ownerEmail == auth.user.email){
+                            if(auth.user && list.ownerEmail == auth.user.email){
                                 return <PublishedListCard
                                     key={list._id}
                                     list={list}
@@ -159,7 +158,7 @@ const HomeScreen = () => {
                     <List sx={{ width: '90%', left: '5%'}}>
                     {
                         store.userSearchRes.map((list) => {
-                            if(list.ownerEmail == auth.user.email){
+                            if(auth.user && list.ownerEmail == auth.user.email){
                                 return <PublishedListCard
                                     key={list._id}
                                     list={list}

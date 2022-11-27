@@ -31,7 +31,6 @@ const ListViewer = () => {
     }
     let player = <ListPlayer />
     let commenter = <CommentViewer />;
-    
     return (
       <Grid>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -41,7 +40,7 @@ const ListViewer = () => {
               </Tabs>
           </Box>
           {tabValue === 0 && player}
-          {tabValue === 1 && commenter}
+          {tabValue === 1 && store.currentList && store.currentList.isPublished && commenter}
       </Grid>
       )
 }

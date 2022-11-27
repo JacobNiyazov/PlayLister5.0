@@ -32,25 +32,27 @@ const CommentViewer = () => {
 
     let commenter = "";
     if(store.currentList){
-      commenter = <Grid xl={12} maxHeight={300} sx={{ overflowY: "scroll" }}>
-                    <List>
-                    {
-                      store.currentList.comments.map((item) => (
-                        <CommentCard author={item.author} comment={item.comment}/>
-                      ))
-                    }
-                  </List>
-                </Grid>;
+      commenter =
+                <List>
+                {
+                  store.currentList.comments.map((item) => (
+                    <CommentCard author={item.author} comment={item.comment}/>
+                  ))
+                }
+              </List>
     }
     
     return (
-      <Grid>
-          {
-            commenter
-          }
-          <TextField sx={{ width:'35%', 
+      <Grid container>
+          <Grid item xl={12} maxHeight={'30rem'} style={{ minWidth: '40rem', minHeight:'30rem' }} sx={{ overflowY: "scroll" }}>
+            {
+              commenter
+            }
+          </Grid>
+          <Grid item xl={12}>
+              <TextField sx={{ width:'35%', 
                         position: 'fixed', 
-                        mt: '27%', 
+                        mt: '2%', 
                         mx:'2.5%', 
                         bgcolor: '#ffffff'}} 
                         id="filled-basic" 
@@ -58,6 +60,7 @@ const CommentViewer = () => {
                         variant="filled" 
                         onKeyPress={handleKeyPress} 
                         onChange={handleUpdateText}/>
+            </Grid>
       </Grid>
     )
 }
