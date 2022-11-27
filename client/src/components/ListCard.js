@@ -141,6 +141,10 @@ function ListCard(props) {
     let likes = list.likes;
     let dislikes = list.dislikes;
 
+    function handleProfileSearch () {
+        store.searchByUser(author);
+    }
+
     let selectClass = "unselected-list-card";
     if (selected) {
         selectClass = "selected-list-card";
@@ -176,7 +180,7 @@ function ListCard(props) {
                             <Typography variant= 'h4'>{list.name}</Typography>
                         </Grid>
                         <Grid item xl={10}>
-                            <Typography variant= 'h6'>By: {author}</Typography>
+                            <Typography variant= 'h6'>By: <span onClick={handleProfileSearch} style={{color: '#cc6699', fontWeight:'bold', fontSize: '14pt'}}>{author}</span></Typography>
                         </Grid>
                     </Grid>                    
                 </AccordionSummary>

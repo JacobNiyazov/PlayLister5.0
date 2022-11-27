@@ -231,7 +231,7 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    currentPage: store.currentPage,
+                    currentPage: store.CurrentPageType.USERS,
                     allPublishedPlaylists: store.allPublishedPlaylists,
                     playlistSearchRes: store.playlistSearchRes,
                     userSearchRes: payload.lists,

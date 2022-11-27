@@ -9,10 +9,12 @@ import { Typography } from '@mui/material';
 function CommentCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { author, comment } = props;
-
+    function handleProfileSearch () {
+        store.searchByUser(author);
+    }
     return (
         <Box className='list-card unselected-list-card'>
-            <Typography variant='h6' color='#0033cc' sx={{ fontWeight: 'bold' }}>{author}</Typography>
+            <Typography variant='h6'><span onClick={handleProfileSearch} style={{color: '#cc6699', fontWeight:'bold', fontSize: '14pt'}}>{author}</span></Typography>
             <Typography variant='body1'>{comment}</Typography>
         </Box>
     );

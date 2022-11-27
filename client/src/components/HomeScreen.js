@@ -57,7 +57,9 @@ const HomeScreen = () => {
         }
     }
     if (store) {
-        console.log(store.allPublishedPlaylists)
+        if(!store.currentList && expanded){
+            handleAccordionChange(expanded);
+        }
         if(store.currentModal != "NONE"){
             isModalOpen = true;
         }

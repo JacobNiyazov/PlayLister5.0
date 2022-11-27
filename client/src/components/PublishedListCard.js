@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -87,6 +88,10 @@ function PublishedListCard(props) {
         isModalOpen = true;
     }
 
+    function handleProfileSearch () {
+        store.searchByUser(author);
+    }
+
     let deleteButton = "";
     let space1 = 9;
     let space2 = 3;
@@ -130,7 +135,7 @@ function PublishedListCard(props) {
                                 />
                         </Grid>
                         <Grid item xl={10}>
-                            <Typography variant= 'h6'>By: {author}</Typography>
+                            <Typography variant='h6'>By: <span onClick={handleProfileSearch} style={{color: '#cc6699', fontWeight:'bold', fontSize: '14pt'}}>{author}</span></Typography>
                         </Grid>
                         <Grid item xl={8}>
                             <Typography variant= 'body2'>Published: <span style={{color:'#00ffff'}}>{publishDate}</span></Typography>
