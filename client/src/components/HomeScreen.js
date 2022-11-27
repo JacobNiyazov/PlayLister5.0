@@ -94,22 +94,66 @@ const HomeScreen = () => {
                 }
                 </List>;
         }
-        else if(store.currentPage == 'PLAYLISTS'){
-            listCard = 
-                <List sx={{ width: '90%', left: '5%'}}>
-                {
-                    store.allPublishedPlaylists.map((list) => (
-                        <PublishedListCard
-                            key={list._id}
-                            list={list}
-                            selected={false}
-                            expanded={expanded}
-                            owner={false}
-                            handleAccordionChange={handleAccordionChange}
-                        />
-                    ))
-                }
-                </List>;
+        else if(store.currentPage == 'PLAYLISTS'){            
+            if(store.playlistSearchRes.length == 0){
+                listCard = 
+                    <List sx={{ width: '90%', left: '5%'}}>
+                    {
+                        store.allPublishedPlaylists.map((list) => {
+                            if(list.ownerEmail == auth.user.email){
+                                return <PublishedListCard
+                                    key={list._id}
+                                    list={list}
+                                    selected={false}
+                                    expanded={expanded}
+                                    owner={true}
+                                    handleAccordionChange={handleAccordionChange}
+                                />;
+                            }
+                            else{
+                                return <PublishedListCard
+                                    key={list._id}
+                                    list={list}
+                                    selected={false}
+                                    expanded={expanded}
+                                    owner={false}
+                                    handleAccordionChange={handleAccordionChange}
+                                />;
+                            }
+                        })
+                    }
+                    </List>;
+            }
+            else{
+                console.log(store.playlistSearchRes)
+                listCard = 
+                    <List sx={{ width: '90%', left: '5%'}}>
+                    {
+                        store.playlistSearchRes.map((list) => {
+                            if(list.ownerEmail == auth.user.email){
+                                return <PublishedListCard
+                                    key={list._id}
+                                    list={list}
+                                    selected={false}
+                                    expanded={expanded}
+                                    owner={true}
+                                    handleAccordionChange={handleAccordionChange}
+                                />;
+                            }
+                            else{
+                                return <PublishedListCard
+                                    key={list._id}
+                                    list={list}
+                                    selected={false}
+                                    expanded={expanded}
+                                    owner={false}
+                                    handleAccordionChange={handleAccordionChange}
+                                />;
+                            }
+                        })
+                    }
+                    </List>;
+            }
         }
         else{
             listCard = "";

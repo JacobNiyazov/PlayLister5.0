@@ -24,8 +24,22 @@ export default function NavToolBar() {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [text, setText] = useState("");
     const isMenuOpen = Boolean(anchorEl);
 
+    function handleUpdateText(event) {
+        setText(event.target.value);
+    }
+    function handleKeyPress(event) {
+        if (event.code === "Enter") {
+            if(store.currentPage == 'PLAYLISTS'){
+                store.searchByPlaylist(text);
+            }
+            else if(store.currentPage == 'USERS'){
+                store.searchByUser(text);
+            }
+        }
+    }
     const handleHomeButton = (event) => {
         store.updateCurrentPage(store.CurrentPageType.HOME);
     };
@@ -118,7 +132,7 @@ export default function NavToolBar() {
                         onClick={handleUsersButton}>
                         <PersonSearchIcon />
                     </Button>
-                    <TextField fullWidth sx={{ mx: '20%', bgcolor: '#ffffff'}} id="filled-basic" label="Search" variant="filled"/>
+                    <TextField fullWidth sx={{ mx: '20%', bgcolor: '#ffffff'}} id="filled-basic" label="Search" variant="filled" onKeyPress={handleKeyPress} onChange={handleUpdateText}/>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <Typography variant='h6' mt='0.7rem'>Sort</Typography>
                         <Typography variant='h6' mt='0.7rem'>&nbsp;</Typography>

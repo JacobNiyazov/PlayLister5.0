@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import AuthContext from '../auth';
 import { GlobalStoreContext } from '../store'
@@ -23,6 +23,10 @@ export default function AppBanner() {
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
 
+    useEffect(() => {
+            store.getAllPublishedPlaylists();
+        }, []);
+        
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };

@@ -22,10 +22,17 @@ function Statusbar() {
         // store.loadIdNamePairs();
     }
 
-    if ((store.currentPage == store.CurrentPageType.PLAYLISTS || store.currentPage == store.CurrentPageType.USERS) && store.currentList){
+    if (store.currentPage == store.CurrentPageType.PLAYLISTS && store.currentSearch){
         return (
             <div id="playlister-statusbar">
-                <Typography variant="h5">{store.currentList}</Typography>
+                <Typography variant="h5">{store.currentSearch} Playlists</Typography>
+            </div>
+        );
+    }
+    else if (store.currentPage == store.CurrentPageType.USERS && store.currentSearch){
+        return (
+            <div id="playlister-statusbar">
+                <Typography variant="h5">{store.currentSearch}'s Playlists</Typography>
             </div>
         );
     }

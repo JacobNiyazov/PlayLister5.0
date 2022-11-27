@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Button, Typography } from '@mui/material';
 import Grid from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,6 +15,10 @@ export default function SplashScreen() {
         auth.setGuestUser();
         store.updateCurrentPage(store.CurrentPageType.PLAYLISTS);
     };
+
+    // useEffect(() => {
+    //     store.getAllPublishedPlaylists();
+    // }, []);
     return (
         <Grid sx={{height: '100%'}}>
             <div id="splash-screen" style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>

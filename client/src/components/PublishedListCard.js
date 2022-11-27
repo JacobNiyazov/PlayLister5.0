@@ -35,6 +35,8 @@ function PublishedListCard(props) {
 
     const { list, selected, expanded, owner, handleAccordionChange } = props;
 
+    let isGuest = auth.userType == 'guest' ? true : false;
+
     function handleDuplicateList() {
         if(expanded){
             handleAccordionChange(expanded);
@@ -95,6 +97,12 @@ function PublishedListCard(props) {
                             Delete
                         </Button>
     }
+    let duplicateButton = "";
+    if(!isGuest){
+        duplicateButton = <Button autoFocus sx={{bgcolor:'white', opacity:'90%', mr:'5%', ':hover': {bgcolor: 'primary.main', color: 'white'}}} onClick={handleDuplicateList}>
+                            Duplicate
+                        </Button>
+    }
 
     let cardElement =
         <ListItem
@@ -147,9 +155,7 @@ function PublishedListCard(props) {
                         <Grid item xl={space1}>
                         </Grid>
                         <Grid item xl={space2}>
-                            <Button autoFocus sx={{bgcolor:'white', opacity:'90%', mr:'5%', ':hover': {bgcolor: 'primary.main', color: 'white'}}} onClick={handleDuplicateList}>
-                                Duplicate
-                            </Button>
+                            { duplicateButton }
                             { deleteButton }
                         </Grid>
                     </Grid>
