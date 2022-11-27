@@ -125,7 +125,6 @@ const HomeScreen = () => {
                     </List>;
             }
             else{
-                console.log(store.playlistSearchRes)
                 listCard = 
                     <List sx={{ width: '90%', left: '5%'}}>
                     {
@@ -155,8 +154,34 @@ const HomeScreen = () => {
                     </List>;
             }
         }
-        else{
-            listCard = "";
+        else if (store.currentPage == 'USERS' && store.userSearchRes.length != 0){
+            listCard = 
+                    <List sx={{ width: '90%', left: '5%'}}>
+                    {
+                        store.userSearchRes.map((list) => {
+                            if(list.ownerEmail == auth.user.email){
+                                return <PublishedListCard
+                                    key={list._id}
+                                    list={list}
+                                    selected={false}
+                                    expanded={expanded}
+                                    owner={true}
+                                    handleAccordionChange={handleAccordionChange}
+                                />;
+                            }
+                            else{
+                                return <PublishedListCard
+                                    key={list._id}
+                                    list={list}
+                                    selected={false}
+                                    expanded={expanded}
+                                    owner={false}
+                                    handleAccordionChange={handleAccordionChange}
+                                />;
+                            }
+                        })
+                    }
+                    </List>;
         }
     }
     return (
