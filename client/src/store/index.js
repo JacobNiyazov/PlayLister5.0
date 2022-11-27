@@ -39,7 +39,10 @@ export const GlobalStoreActionType = {
     DUPLICATE_LIST: "DUPLICATE_LIST",
     LOAD_ALL_PUBLISHED_PLAYLISTS: "LOAD_ALL_PUBLISHED_PLAYLISTS",
     SEARCH_BY_PLAYLIST: "SEARCH_BY_PLAYLIST",
-    SEARCH_BY_USER: "SEARCH_BY_USER"
+    SEARCH_BY_USER: "SEARCH_BY_USER",
+    UPDATE_USER_LISTS: "UPDATE_USER_LISTS",
+    UPDATE_PUBLISHED_LISTS: "UPDATE_PUBLISHED_LISTS",
+
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -453,6 +456,46 @@ function GlobalStoreContextProvider(props) {
                     userSearchRes: store.userSearchRes,
                     currentSearch: store.currentSearch,
                     renameError: payload
+                });
+            }
+            case GlobalStoreActionType.UPDATE_USER_LISTS: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    userLists: payload,
+                    currentList: store.currentList,
+                    currentSongIndex: -1,
+                    currentSong: store.currentSong,
+                    newListCounter: store.newListCounter,
+                    listNameActive: store.listNameActive,
+                    listIdMarkedForDeletion: store.listIdMarkedForDeletion,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    currentPage: store.currentPage,
+                    allPublishedPlaylists: store.allPublishedPlaylists,
+                    playlistSearchRes: store.playlistSearchRes,
+                    userSearchRes: store.userSearchRes,
+                    currentSearch: store.currentSearch,
+                    renameError: store.renameError
+                });
+            }
+            case GlobalStoreActionType.UPDATE_PUBLISHED_LISTS: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    userLists: store.userLists,
+                    currentList: store.currentList,
+                    currentSongIndex: -1,
+                    currentSong: store.currentSong,
+                    newListCounter: store.newListCounter,
+                    listNameActive: store.listNameActive,
+                    listIdMarkedForDeletion: store.listIdMarkedForDeletion,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    currentPage: store.currentPage,
+                    allPublishedPlaylists: payload,
+                    playlistSearchRes: store.playlistSearchRes,
+                    userSearchRes: store.userSearchRes,
+                    currentSearch: store.currentSearch,
+                    renameError: store.renameError
                 });
             }
             case GlobalStoreActionType.LOG_OUT: {
@@ -975,6 +1018,18 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
+    store.updateUserLists = function (playlist) {
+        storeReducer({
+            type: GlobalStoreActionType.UPDATE_USER_LISTS,
+            payload: playlist
+        });
+    }
+    store.updatePublishedLists = function (playlist) {
+        storeReducer({
+            type: GlobalStoreActionType.UPDATE_PUBLISHED_LISTS,
+            payload: playlist
+        });
+    }
     return (
         <GlobalStoreContext.Provider value={{
             store

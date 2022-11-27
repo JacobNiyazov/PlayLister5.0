@@ -56,6 +56,55 @@ export default function NavToolBar() {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
+    function handleUserNameSort(){
+        handleMenuClose();
+        let playlists = store.userLists;
+        playlists.sort((p1, p2) => p1.name.localeCompare(p2.name));
+        store.updateUserLists(playlists);
+    }
+    function handleUserCDSort() {
+        handleMenuClose();
+        let playlists = store.userLists;
+        playlists.sort((p1, p2) => (new Date(p1.createdAt)) - (new Date(p2.createdAt)));
+        store.updateUserLists(playlists);
+    }
+    function handleUserLEDSort() {
+        handleMenuClose();
+        let playlists = store.userLists;
+        playlists.sort((p1, p2) => (new Date(p1.updatedAt)) - (new Date(p2.updatedAt)) > 0 ? -1 : 1);
+        store.updateUserLists(playlists);
+    }
+    function handleNameSort(){
+        handleMenuClose();
+        let playlists = store.allPublishedPlaylists;
+        playlists.sort((p1, p2) => p1.name.localeCompare(p2.name));
+        store.updatePublishedLists(playlists);
+    }
+    function handlePublishSort(){
+        handleMenuClose();
+        let playlists = store.allPublishedPlaylists;
+        playlists.sort((p1, p2) => (new Date(p1.publishDate)) - (new Date(p2.publishDate)) > 0 ? -1 : 1);
+        store.updatePublishedLists(playlists);
+    }
+    function handleListensSort(){
+        handleMenuClose();
+        let playlists = store.allPublishedPlaylists;
+        playlists.sort((p1, p2) => p1.listens > p2.listens ? -1 : 1);
+        store.updatePublishedLists(playlists);
+    }
+    function handleLikesSort(){
+        handleMenuClose();
+        let playlists = store.allPublishedPlaylists;
+        playlists.sort((p1, p2) => p1.likes > p2.likes ? -1 : 1);
+        store.updatePublishedLists(playlists);
+    }
+    function handleDislikesSort(){
+        handleMenuClose();
+        let playlists = store.allPublishedPlaylists;
+        playlists.sort((p1, p2) => p1.dislikes > p2.dislikes ? -1 : 1);
+        store.updatePublishedLists(playlists);
+    }
+
     let homeDisabled = false;
     if(auth.userType == 'guest')
         homeDisabled = true;
@@ -81,7 +130,8 @@ export default function NavToolBar() {
         playlistsPageButtonColor = '#ffffff';
         usersPageButtonColor = '#2c2435';
     } 
-    const sortMenu = 
+
+    let sortMenu = 
         <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
@@ -98,12 +148,36 @@ export default function NavToolBar() {
             onClose={handleMenuClose}
 
         >
-            <MenuItem onClick={handleMenuClose}>Name (A-Z)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Publish Date (Newest)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Listens (High - Low)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Likes (High - Low)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Dislikes (High - Low)</MenuItem>
-        </Menu>        
+            <MenuItem onClick={handleNameSort}>Name (A-Z)</MenuItem>
+            <MenuItem onClick={handlePublishSort}>Publish Date (Newest)</MenuItem>
+            <MenuItem onClick={handleListensSort}>Listens (High - Low)</MenuItem>
+            <MenuItem onClick={handleLikesSort}>Likes (High - Low)</MenuItem>
+            <MenuItem onClick={handleDislikesSort}>Dislikes (High - Low)</MenuItem>
+        </Menu>    
+    if(currentPage === 'HOME'){
+        sortMenu = 
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+
+        >
+            <MenuItem onClick={handleUserNameSort}>Name (A-Z)</MenuItem>
+            <MenuItem onClick={handleUserCDSort}>Creation Date (Old - New)</MenuItem>
+            <MenuItem onClick={handleUserLEDSort}>Last Edit Date (New - Old)</MenuItem>
+        </Menu>    
+    }
+     
 
     return (
         <Box sx={{ flexGrow: 1 }}>
