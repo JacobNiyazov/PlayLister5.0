@@ -4,7 +4,8 @@ import { GlobalStoreContext } from '../store'
 
 export default function YouTubePlayer(props) {
     const { store } = useContext(GlobalStoreContext);
-    let { songNum, songTitle, songArtist, updateSongInfo } = props;
+    let { songNum, songTitle, songArtist, updateSongInfo, pauseOrPlay } = props;
+    let [plyr, setPlyr] = useState(null);
     // THIS EXAMPLE DEMONSTRATES HOW TO DYNAMICALLY MAKE A
     // YOUTUBE PLAYER AND EMBED IT IN YOUR SITE. IT ALSO
     // DEMONSTRATES HOW TO IMPLEMENT A PLAYLIST THAT MOVES
@@ -16,10 +17,15 @@ export default function YouTubePlayer(props) {
         "8RbXIMZmVv8",
         "8UbNbor3OqQ"
     ];
-    playlist = store.currentList;
+    playlist = store.currentPlayingList;
     // THIS IS THE INDEX OF THE SONG CURRENTLY IN USE IN THE PLAYLIST
     let currentSong = store.currentSongIndex;
-
+    if(plyr && pauseOrPlay == "pause"){
+        plyr.pauseVideo();
+    }
+    else if(plyr && pauseOrPlay == "play"){
+        plyr.playVideo();
+    }
     const playerOptions = {
         height: '370',
         width: '640',
@@ -56,6 +62,8 @@ export default function YouTubePlayer(props) {
     function onPlayerStateChange(event) {
         let playerStatus = event.data;
         let player = event.target;
+        setPlyr(player);
+        console.log(playerStatus)
         if (playerStatus === -1) {
             // VIDEO UNSTARTED
             console.log("-1 Video unstarted");
@@ -76,6 +84,7 @@ export default function YouTubePlayer(props) {
         } else if (playerStatus === 5) {
             // THE VIDEO HAS BEEN CUED
             console.log("5 Video cued");
+            loadAndPlayCurrentSong(player);
         }
     }
 

@@ -18,23 +18,34 @@ import YouTubePlayer from './YouTubePlayer'
 */
 const ListPlayer = () => {
     const { store } = useContext(GlobalStoreContext);
-    let songNum = store.currentList ? store.currentSongIndex : "";
-    let listName = store.currentList ? store.currentList.name : "";
-    let songTitle = store.currentList ? store.currentList.songs[store.currentSongIndex].title : "";
-    let songArtist = store.currentList ? store.currentList.songs[store.currentSongIndex].artist : "";
+    let [pauseOrPlay, setPauseOrPlay] = useState("play");
+
+    let songNum = "";
+    let listName = "";
+    let songTitle = "";
+    let songArtist = "";
+    if(store.currentPlayingList && store.currentSongIndex < store.currentPlayingList.songs.length){
+      songNum = store.currentSongIndex+1;
+      listName = store.currentPlayingList.name;
+      songTitle = store.currentPlayingList.songs[store.currentSongIndex].title;
+      songArtist = store.currentPlayingList.songs[store.currentSongIndex].artist;
+    }
+
     return (
       <Grid>
           <Box sx={{mx: '1rem', mb: '0.5rem', height: '23rem', width: '40rem', border: 5, borderColor: 'black' }}>
-            {store.currentList && <YouTubePlayer 
-                                    songNum={songNum}
-                                    songTitle={songTitle}
-                                    songArtist={songArtist}/>}
+            {store.currentPlayingList && (store.currentSongIndex < store.currentPlayingList.songs.length) && 
+              <YouTubePlayer 
+              songNum={songNum}
+              songTitle={songTitle}
+              songArtist={songArtist}
+              pauseOrPlay={pauseOrPlay} />}
           </Box>
           <Typography variant='h5'>PlayList: {listName}</Typography>
           <Typography variant='h5'>Song #{songNum}</Typography>
           <Typography variant='h5'>Title: {songTitle}</Typography>
           <Typography variant='h5'>Artist: {songArtist}</Typography>
-          <ListPlayerController />
+          <ListPlayerController setPauseOrPlay={setPauseOrPlay} />
       </Grid>
       )
 }

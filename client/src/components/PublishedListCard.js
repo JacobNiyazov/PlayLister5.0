@@ -34,13 +34,13 @@ function PublishedListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
 
-    const { list, selected, expanded, owner, handleAccordionChange } = props;
+    const { list, selected, expanded, owner, handleAccordionChange, handleAccordionChangeFunc } = props;
 
     let isGuest = auth.userType == 'guest' ? true : false;
 
     function handleDuplicateList() {
         if(expanded){
-            handleAccordionChange(expanded);
+            handleAccordionChangeFunc(expanded);
         }
         store.duplicateList(list._id);
     }
@@ -51,27 +51,42 @@ function PublishedListCard(props) {
         _id = ("" + _id).substring("delete-list-".length);
         store.markListForDeletion(list._id);
     }
+    function handleToggleEdit(event) {
+        event.stopPropagation();
+        if(event.detail === 1){
+            store.setCurrentPlayingList(list);
+        }
+    }
 
     let songCards = "";
     if(store.currentList){
-        songCards = store.currentList.songs.map((song, index) => (
-              <ListItem
-                id={'playlist-song-' + (index)}
-                key={'playlist-song-' + (index)}
-                index={index}
-                song={song}
-                sx={{display: 'flex', p: 1 }}
-                style={{ width: '100%', fontSize: '28pt' }}
-            >
-              <Typography variant='h6' color='#ffffff'>{`${index+1}. ${song.title} by ${song.artist}`}</Typography>
-            </ListItem>
-            // <SongCard
-            //     id={'playlist-song-' + (index)}
-            //     key={'playlist-song-' + (index)}
-            //     index={index}
-            //     song={song}
-            // />
-        ))
+        songCards = store.currentList.songs.map((song, index) => {
+            if(store.currentPlayingList && index == store.currentSongIndex){
+                return <ListItem
+                            id={'playlist-song-' + (index)}
+                            key={'playlist-song-' + (index)}
+                            index={index}
+                            song={song}
+                            sx={{display: 'flex', p: 1 }}
+                            style={{ width: '100%', fontSize: '28pt' }}
+                        >
+                            <Typography variant='h6' color='rgb(131, 173, 201)'>{`${index+1}. ${song.title} by ${song.artist}`}</Typography>
+                        </ListItem>;
+            }
+            else{
+                return <ListItem
+                    id={'playlist-song-' + (index)}
+                    key={'playlist-song-' + (index)}
+                    index={index}
+                    song={song}
+                    sx={{display: 'flex', p: 1 }}
+                    style={{ width: '100%', fontSize: '28pt' }}
+                >
+                    <Typography variant='h6' color='#ffffff'>{`${index+1}. ${song.title} by ${song.artist}`}</Typography>
+                </ListItem>;
+            }
+              
+        })
     }
     // getLists();
     // let plist;
@@ -121,8 +136,9 @@ function PublishedListCard(props) {
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon
                         style={{ cursor: 'pointer', color:'white'}}
-                        onClick={() => handleAccordionChange(list._id)} />
+                        onClick={handleAccordionChange(list._id)} />
                     }
+                    onClick={handleToggleEdit}
                     >
                     <Grid container>
                         <Grid item xl={7}>

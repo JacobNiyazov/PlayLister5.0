@@ -47,7 +47,17 @@ const HomeScreen = () => {
     let listCard = "";
     let cardStatus = false;
     let isModalOpen = false;
-    const handleAccordionChange = (panel) => {
+    const handleAccordionChange = (panel) => (event) => {
+        event.stopPropagation();
+        setExpanded((expanded === panel) ? false : panel);
+        if(expanded === panel){
+            store.closeCurrentList();
+        }
+        else{
+            store.setCurrentList(panel);
+        }
+    }
+    const handleAccordionChangeFunc = (panel) => {
         setExpanded((expanded === panel) ? false : panel);
         if(expanded === panel){
             store.closeCurrentList();
@@ -58,7 +68,8 @@ const HomeScreen = () => {
     }
     if (store) {
         if(!store.currentList && expanded){
-            handleAccordionChange(expanded);
+            console.log(expanded)
+            handleAccordionChangeFunc(expanded);
         }
         if(store.currentModal != "NONE"){
             isModalOpen = true;
@@ -84,6 +95,7 @@ const HomeScreen = () => {
                                         expanded={expanded}
                                         owner={true}
                                         handleAccordionChange={handleAccordionChange}
+                                        handleAccordionChangeFunc={handleAccordionChangeFunc}
                                     />
                         }
                         else{
@@ -93,6 +105,7 @@ const HomeScreen = () => {
                                         selected={false}
                                         expanded={expanded}
                                         handleAccordionChange={handleAccordionChange}
+                                        handleAccordionChangeFunc={handleAccordionChangeFunc}
                                     />
                         }
                     })
@@ -113,6 +126,7 @@ const HomeScreen = () => {
                                     expanded={expanded}
                                     owner={true}
                                     handleAccordionChange={handleAccordionChange}
+                                    handleAccordionChangeFunc={handleAccordionChangeFunc}
                                 />;
                             }
                             else{
@@ -123,6 +137,7 @@ const HomeScreen = () => {
                                     expanded={expanded}
                                     owner={false}
                                     handleAccordionChange={handleAccordionChange}
+                                    handleAccordionChangeFunc={handleAccordionChangeFunc}
                                 />;
                             }
                         })
@@ -142,6 +157,7 @@ const HomeScreen = () => {
                                     expanded={expanded}
                                     owner={true}
                                     handleAccordionChange={handleAccordionChange}
+                                    handleAccordionChangeFunc={handleAccordionChangeFunc}
                                 />;
                             }
                             else{
@@ -152,6 +168,7 @@ const HomeScreen = () => {
                                     expanded={expanded}
                                     owner={false}
                                     handleAccordionChange={handleAccordionChange}
+                                    handleAccordionChangeFunc={handleAccordionChangeFunc}
                                 />;
                             }
                         })
@@ -172,6 +189,7 @@ const HomeScreen = () => {
                                     expanded={expanded}
                                     owner={true}
                                     handleAccordionChange={handleAccordionChange}
+                                    handleAccordionChangeFunc={handleAccordionChangeFunc}
                                 />;
                             }
                             else{
@@ -182,6 +200,7 @@ const HomeScreen = () => {
                                     expanded={expanded}
                                     owner={false}
                                     handleAccordionChange={handleAccordionChange}
+                                    handleAccordionChangeFunc={handleAccordionChangeFunc}
                                 />;
                             }
                         })

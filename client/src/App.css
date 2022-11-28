@@ -14,6 +14,7 @@
   --swatch-status: #123456;
   --swatch-custom: #1976d2;
   --swatch-song: rgb(188, 228, 255);
+  --swatch-current: #00ffff;
   --my-font-family: "Robaaaoto";
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
 }
@@ -176,7 +177,8 @@ body {
 
 .list-card,
 .selected-list-card,
-.unselected-list-card {
+.unselected-list-card,
+.current-list-card {
   font-size: 18pt;
   margin: 10px;
   padding: 20px;
@@ -204,6 +206,10 @@ body {
 
 .unselected-list-card {
   background-color: var(--swatch-song);
+}
+
+.current-list-card {
+  background-color: var(--swatch-current);
 }
 
 .list-card-button {

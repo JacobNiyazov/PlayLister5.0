@@ -35,7 +35,7 @@ function ListCard(props) {
 
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
-    const { list, selected, expanded, handleAccordionChange } = props;
+    const { list, selected, expanded, handleAccordionChange, handleAccordionChangeFunc } = props;
     
     function handleLoadList(event, id) {
         console.log("handleLoadList for " + id);
@@ -55,9 +55,12 @@ function ListCard(props) {
         event.stopPropagation();
         if (event.detail === 2) {
             if(expanded){
-                handleAccordionChange(expanded);
+                handleAccordionChangeFunc(expanded);
             }
             toggleEdit();
+        }
+        else if(event.detail === 1){
+            store.setCurrentPlayingList(list);
         }
     }
 
@@ -71,7 +74,7 @@ function ListCard(props) {
         }
         setEditActive(newActive);
         if(expanded){
-            handleAccordionChange(expanded);
+            handleAccordionChangeFunc(expanded);
         }
     }
 
@@ -86,13 +89,13 @@ function ListCard(props) {
     }
     function handleDuplicateList() {
         if(expanded){
-            handleAccordionChange(expanded);
+            handleAccordionChangeFunc(expanded);
         }
         store.duplicateList(list._id);
     }
     function handlePublishList() {
         if(expanded){
-            handleAccordionChange(expanded);
+            handleAccordionChangeFunc(expanded);
         }
         store.publishList();
     }
@@ -171,7 +174,7 @@ function ListCard(props) {
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon
                         style={{ cursor: 'pointer'}}
-                        onClick={() => handleAccordionChange(list._id)} />
+                        onClick={handleAccordionChange(list._id)} />
                     }
                     onClick={handleToggleEdit}
                     >
