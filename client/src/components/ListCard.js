@@ -160,7 +160,12 @@ function ListCard(props) {
     if(store.currentModal != "NONE"){
         isModalOpen = true;
     }
-
+    let bckgColor = '#ffffff';
+    let fColor = '#000000'
+    if(store.currentPlayingList == list){
+        bckgColor = '#290072';
+        fColor = 'white';
+    }
     let cardElement =
         <ListItem
             id={list._id}
@@ -170,7 +175,7 @@ function ListCard(props) {
             button
             // onClick={handleToggleEdit}
         >
-            <Accordion expanded={expanded === list._id} sx={{ p: 1, flexGrow: 1}}>
+            <Accordion expanded={expanded === list._id} sx={{ p: 1, flexGrow: 1, color:fColor, backgroundColor:bckgColor}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon
                         style={{ cursor: 'pointer'}}

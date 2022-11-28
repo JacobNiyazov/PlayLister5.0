@@ -124,6 +124,10 @@ function PublishedListCard(props) {
                         </Button>
     }
 
+    let bckgColor = '#1976d2';
+    if(store.currentPlayingList == list){
+        bckgColor = '#290072';
+    }
     let cardElement =
         <ListItem
             id={list._id}
@@ -132,7 +136,7 @@ function PublishedListCard(props) {
             style={{ width: '100%', fontSize: '28pt' }}
             button
         >
-            <Accordion expanded={expanded === list._id} sx={{ p: 1, flexGrow: 1, color:'white', backgroundColor:'#1976d2'}}>
+            <Accordion expanded={expanded === list._id} sx={{ p: 1, flexGrow: 1, color:'white', backgroundColor:bckgColor}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon
                         style={{ cursor: 'pointer', color:'white'}}
