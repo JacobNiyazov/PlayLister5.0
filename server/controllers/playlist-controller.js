@@ -120,6 +120,22 @@ getPlaylistById = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
+getPublishedPlaylistById = async (req, res) => {
+    await Playlist.findById({ _id: req.params.id }, (err, list) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        if (list.isPublished) {
+            console.log("list is public!");
+            return res.status(200).json({ success: true, playlist: list })
+        }
+        else {
+            console.log("List isn't Published");
+            return res.status(400).json({ success: false, description: "authentication error" });
+        }
+    }).catch(err => console.log(err))
+}
+
 getPlaylistPairs = async (req, res) => {
     console.log("getPlaylistPairs");
     await User.findOne({ _id: req.userId }, (err, user) => {
@@ -294,5 +310,6 @@ module.exports = {
     getPlaylistPairs,
     getPlaylists,
     updatePlaylist,
-    getAllPublishedPlaylists
+    getAllPublishedPlaylists,
+    getPublishedPlaylistById
 }

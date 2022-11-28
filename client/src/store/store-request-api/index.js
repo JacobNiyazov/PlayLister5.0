@@ -42,6 +42,7 @@ export const getPlaylistById = (id) => api.get(`/playlist/${id}`)
 export const getPlaylistPairs = () => api.get(`/playlistpairs/`)
 export const getPlaylists = () => api.get(`/playlists`)
 export const getAllPublishedPlaylists = () => api.get(`/publishedplaylists`)
+export const getPublishedPlaylistById = (id) => api.get(`/publishedplaylist/${id}`)
 
 export const updatePlaylistById = (id, playlist) => {
     return api.put(`/playlist/${id}`, {
@@ -57,7 +58,8 @@ const apis = {
     getPlaylistPairs,
     updatePlaylistById,
     getPlaylists,
-    getAllPublishedPlaylists
+    getAllPublishedPlaylists,
+    getPublishedPlaylistById
 }
 
 export default apis

@@ -42,7 +42,7 @@ export const GlobalStoreActionType = {
     SEARCH_BY_USER: "SEARCH_BY_USER",
     UPDATE_USER_LISTS: "UPDATE_USER_LISTS",
     UPDATE_PUBLISHED_LISTS: "UPDATE_PUBLISHED_LISTS",
-
+    INC_CURRENT_SONG_IDX: "INC_CURRENT_SONG_IDX"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -65,7 +65,7 @@ function GlobalStoreContextProvider(props) {
         idNamePairs: [],
         userLists: [],
         currentList: null,
-        currentSongIndex : -1,
+        currentSongIndex : 0,
         currentSong : null,
         newListCounter: 0,
         listNameActive: false,
@@ -102,7 +102,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: payload.idNamePairs,
                     userLists: payload.lists,
                     currentList: null,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -123,7 +123,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: null,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -144,7 +144,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: payload,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter + 1,
                     listNameActive: false,
@@ -164,7 +164,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: null,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter + 1,
                     listNameActive: false,
@@ -185,7 +185,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: payload.pairsArray,
                     userLists: payload.lists,
                     currentList: payload.newList,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -205,7 +205,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: null,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -225,7 +225,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: null,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -245,7 +245,7 @@ function GlobalStoreContextProvider(props) {
             //         idNamePairs: store.idNamePairs,
             //         userLists: payload,
             //         currentList: null,
-            //         currentSongIndex: -1,
+            //         currentSongIndex: 0,
             //         currentSong: null,
             //         newListCounter: store.newListCounter,
             //         listNameActive: false,
@@ -260,7 +260,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: null,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -281,7 +281,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: store.currentList,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -301,7 +301,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: store.currentList,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -322,7 +322,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: payload,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -343,7 +343,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: payload,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: true,
@@ -363,7 +363,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: payload,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -424,7 +424,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: store.currentList,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
@@ -444,7 +444,27 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: store.currentList,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
+                    currentSong: store.currentSong,
+                    newListCounter: store.newListCounter,
+                    listNameActive: store.listNameActive,
+                    listIdMarkedForDeletion: store.listIdMarkedForDeletion,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    currentPage: store.currentPage,
+                    allPublishedPlaylists: store.allPublishedPlaylists,
+                    playlistSearchRes: store.playlistSearchRes,
+                    userSearchRes: store.userSearchRes,
+                    currentSearch: store.currentSearch,
+                    renameError: payload
+                });
+            }
+            case GlobalStoreActionType.INC_CURRENT_SONG_IDX: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    userLists: store.userLists,
+                    currentList: store.currentList,
+                    currentSongIndex: store.currentSongIndex+1,
                     currentSong: store.currentSong,
                     newListCounter: store.newListCounter,
                     listNameActive: store.listNameActive,
@@ -464,7 +484,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: payload,
                     currentList: store.currentList,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: store.currentSong,
                     newListCounter: store.newListCounter,
                     listNameActive: store.listNameActive,
@@ -484,7 +504,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: store.currentList,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: store.currentSong,
                     newListCounter: store.newListCounter,
                     listNameActive: store.listNameActive,
@@ -504,7 +524,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: [],
                     userLists: [],
                     currentList: null,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: null,
                     listNameActive: false,
@@ -524,7 +544,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     userLists: store.userLists,
                     currentList: null,
-                    currentSongIndex: -1,
+                    currentSongIndex: 0,
                     currentSong: null,
                     newListCounter: null,
                     listNameActive: false,
@@ -855,23 +875,35 @@ function GlobalStoreContextProvider(props) {
     // moveItem, updateItem, updateCurrentList, undo, and redo
     store.setCurrentList = function (id) {
         async function asyncSetCurrentList(id) {
-            let response = await api.getPlaylistById(id);
-            if (response.data.success) {
-                let playlist = response.data.playlist;
-                console.log(playlist)
-                storeReducer({
-                    type: GlobalStoreActionType.SET_CURRENT_LIST,
-                    payload: playlist
-                });
-                // response = await api.updatePlaylistById(playlist._id, playlist);
-                // if (response.data.success) {
-                //     storeReducer({
-                //         type: GlobalStoreActionType.SET_CURRENT_LIST,
-                //         payload: playlist
-                //     });
-                //     // history.push("/playlist/" + playlist._id);
-                // }
+            try{
+                let response = await api.getPlaylistById(id);
+                if (response.data.success) {
+                    let playlist = response.data.playlist;
+                    storeReducer({
+                        type: GlobalStoreActionType.SET_CURRENT_LIST,
+                        payload: playlist
+                    });
+                    // response = await api.updatePlaylistById(playlist._id, playlist);
+                    // if (response.data.success) {
+                    //     storeReducer({
+                    //         type: GlobalStoreActionType.SET_CURRENT_LIST,
+                    //         payload: playlist
+                    //     });
+                    //     // history.push("/playlist/" + playlist._id);
+                    // }
+                }
             }
+            catch (e){
+                let response = await api.getPublishedPlaylistById(id);
+                if (response.data.success) {
+                    let playlist = response.data.playlist;
+                    storeReducer({
+                        type: GlobalStoreActionType.SET_CURRENT_LIST,
+                        payload: playlist
+                    });
+                }
+            }
+            
         }
         asyncSetCurrentList(id);
     }
@@ -1001,6 +1033,11 @@ function GlobalStoreContextProvider(props) {
     }
     store.canClose = function() {
         return (store.currentList !== null);
+    }
+    store.incCurrentSongIndex = function (){
+        storeReducer({
+            type: GlobalStoreActionType.INC_CURRENT_SONG_IDX
+        });
     }
 
     // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
