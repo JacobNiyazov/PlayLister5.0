@@ -31,6 +31,7 @@ export const createPlaylist = (newListName, newSongs, userEmail, username) => {
         author: username,
         isPublished: false,
         publishDate: "1970-01-01",
+        reactions: [],
         likes: 0,
         dislikes: 0,
         listens: 0,

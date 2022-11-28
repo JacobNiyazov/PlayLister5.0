@@ -57,7 +57,14 @@ function PublishedListCard(props) {
             store.setCurrentPlayingList(list);
         }
     }
-
+    function handleLike(){
+        if(auth.user)
+            store.handleUpdateLike(list);
+    }
+    function handleDislike(){
+        if(auth.user)
+            store.handleUpdateDislike(list);
+    }
     let songCards = "";
     if(store.currentList){
         songCards = store.currentList.songs.map((song, index) => {
@@ -152,6 +159,9 @@ function PublishedListCard(props) {
                             <LikeDislikeController
                                 likes={likes}
                                 dislikes={dislikes}
+                                handleLike={handleLike}
+                                handleDislike={handleDislike}
+                                list={list}
                                 />
                         </Grid>
                         <Grid item xl={10}>

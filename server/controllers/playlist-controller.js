@@ -253,6 +253,9 @@ updatePlaylist = async (req, res) => {
                             list.isPublished = body.playlist.isPublished;
                             list.publishDate = body.playlist.publishDate;
                             list.comments = body.playlist.comments;
+                            list.reactions = body.playlist.reactions;
+                            list.likes = body.playlist.likes;
+                            list.dislikes = body.playlist.dislikes;
 
                             list
                                 .save()
@@ -276,6 +279,9 @@ updatePlaylist = async (req, res) => {
                 }
                 else if(user._id != req.userId){
                     list.comments = body.playlist.comments;
+                    list.reactions = body.playlist.reactions;
+                    list.likes = body.playlist.likes;
+                    list.dislikes = body.playlist.dislikes;
                     list
                         .save()
                         .then(() => {

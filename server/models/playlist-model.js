@@ -21,7 +21,8 @@ const playlistSchema = new Schema(
         listens: { type: Number, required: true },
         comments: { type: [{author: String, comment: String}], required: true },
         isPublished: { type: Boolean, required: true },
-        publishDate: { type: Date, required: true }
+        publishDate: { type: Date, required: true },
+        reactions: { type: [{ username: String, reaction: String }]}
     },
     { timestamps: true },
 )

@@ -619,6 +619,54 @@ function GlobalStoreContextProvider(props) {
             }
         });
     }
+    store.handleUpdateLike = function (list) {
+        let reac = list.reactions.filter(reaction => reaction.username == auth.user.username);
+        if(reac.length != 0){
+            if(reac[0].reaction == "like") return;
+            else{
+                let index = list.reactions.findIndex(r => r==reac[0]);
+                list.reactions[index] = {username: auth.user.username, reaction: "like"};
+                list.dislikes = list.dislikes - 1;
+                list.likes = list.likes + 1;
+            }
+        }
+        else{
+            list.reactions.push({username: auth.user.username, reaction: "like"});
+            list.likes = list.likes + 1;
+        }
+        // NOW MAKE IT OFFICIAL
+        async function asyncUpdateList(list) {
+            const response = await api.updatePlaylistById(list._id, list);
+            if (response.data.success) {
+                store.loadIdNamePairs();
+            }
+        }
+        asyncUpdateList(list);
+    }
+    store.handleUpdateDislike = function (list) {
+        let reac = list.reactions.filter(reaction => reaction.username == auth.user.username);
+        if(reac.length != 0){
+            if(reac[0].reaction == "dislike") return;
+            else{
+                let index = list.reactions.findIndex(r => r==reac[0]);
+                list.reactions[index] = {username: auth.user.username, reaction: "dislike"};
+                list.likes = list.likes - 1;
+                list.dislikes = list.dislikes + 1;
+            }
+        }
+        else{
+            list.reactions.push({username: auth.user.username, reaction: "dislike"});
+            list.dislikes = list.dislikes + 1;
+        }
+        // NOW MAKE IT OFFICIAL
+        async function asyncUpdateList(list) {
+            const response = await api.updatePlaylistById(list._id, list);
+            if (response.data.success) {
+                store.loadIdNamePairs();
+            }
+        }
+        asyncUpdateList(list);
+    }
     store.setCurrentPlayingList = function (list) {
         storeReducer({
             type: GlobalStoreActionType.SET_CURRENT_PLAYING_LIST,
