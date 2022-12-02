@@ -9,7 +9,8 @@ import { Typography } from '@mui/material';
 function CommentCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { author, comment } = props;
-    function handleProfileSearch () {
+    function handleProfileSearch (event) {
+        event.stopPropagation();
         store.searchByUser(author);
     }
     return (

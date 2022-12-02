@@ -144,7 +144,8 @@ function ListCard(props) {
     let likes = list.likes;
     let dislikes = list.dislikes;
 
-    function handleProfileSearch () {
+    function handleProfileSearch (event) {
+        event.stopPropagation();
         store.searchByUser(author);
     }
 

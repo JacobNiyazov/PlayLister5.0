@@ -303,7 +303,7 @@ function GlobalStoreContextProvider(props) {
                     userSearchRes: store.userSearchRes,
                     currentSearch: store.currentSearch,
                     renameError: null,
-                    currentPlayingList: store.currentPlayingList
+                    currentPlayingList: null
                 });
             }
             case GlobalStoreActionType.UNMARK_LIST_FOR_DELETION: {
@@ -668,17 +668,31 @@ function GlobalStoreContextProvider(props) {
         asyncUpdateList(list);
     }
     store.setCurrentPlayingList = function (list) {
-        storeReducer({
-            type: GlobalStoreActionType.SET_CURRENT_PLAYING_LIST,
-            payload: list
-        });
+        async function asyncUpdate(list) {
+            list.listens = list.listens +1;
+            const response = await api.updatePlaylistById(list._id, list);
+            if (response.data.success) {
+                store.loadIdNamePairs(null, list);
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_PLAYING_LIST,
+                    payload: list
+                });
+            }
+        }
+        asyncUpdate(list);
     }
     store.addComment = function (text) {
-        let list = store.currentList;      
+        let list = store.currentPlayingList;      
         list.comments.push({author: auth.user.username, comment: text}); 
 
         // NOW MAKE IT OFFICIAL
-        store.updateCurrentList();
+        async function asyncUpdate(list) {
+            const response = await api.updatePlaylistById(list._id, list);
+            if (response.data.success) {
+                store.loadIdNamePairs();
+            }
+        }
+        asyncUpdate(list);
     }
     store.searchByPlaylist = function (text) {
         async function asyncSearchByPlaylist(text){
@@ -798,7 +812,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
-    store.loadIdNamePairs = function (newList=null) {
+    store.loadIdNamePairs = function (newList=null, playingList=null) {
         async function asyncLoadIdNamePairs() {
             try{
                 const response = await api.getPlaylistPairs();
@@ -814,6 +828,12 @@ function GlobalStoreContextProvider(props) {
                                 type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
                                 payload: {pairsArray: pairsArray, lists: userPlaylists, allLists: response3.data.data, newList: newList }
                             });
+                            if(playingList){
+                                storeReducer({
+                                    type: GlobalStoreActionType.SET_CURRENT_PLAYING_LIST,
+                                    payload: playingList
+                                });
+                            }
                             console.log(store)
                         }
                     }
@@ -914,6 +934,7 @@ function GlobalStoreContextProvider(props) {
             let list = store.currentList;
             list.isPublished = true;
             list.publishDate = new Date();
+            list.listens = 0;
             const response = await api.updatePlaylistById(store.currentList._id, list);
             if (response.data.success) {
                 storeReducer({

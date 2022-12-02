@@ -40,7 +40,7 @@ const ListViewer = () => {
               </Tabs>
           </Box>
           {tabValue === 0 && player}
-          {tabValue === 1 && store.currentList && store.currentList.isPublished && commenter}
+          {tabValue === 1 && store.currentPlayingList && store.currentPlayingList.isPublished && commenter}
       </Grid>
       )
 }

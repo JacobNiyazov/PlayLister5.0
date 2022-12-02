@@ -110,7 +110,8 @@ function PublishedListCard(props) {
         isModalOpen = true;
     }
 
-    function handleProfileSearch () {
+    function handleProfileSearch (event) {
+        event.stopPropagation();
         store.searchByUser(author);
     }
 

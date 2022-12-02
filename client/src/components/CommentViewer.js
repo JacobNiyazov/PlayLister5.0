@@ -35,11 +35,11 @@ const CommentViewer = () => {
     }
 
     let commenter = "";
-    if(store.currentList){
+    if(store.currentPlayingList){
       commenter =
                 <List>
                 {
-                  store.currentList.comments.map((item) => (
+                  store.currentPlayingList.comments.map((item) => (
                     <CommentCard key={item._id} author={item.author} comment={item.comment}/>
                   ))
                 }
